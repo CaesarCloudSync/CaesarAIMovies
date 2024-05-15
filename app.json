@@ -1,0 +1,59 @@
+{
+  "expo": {
+    "name": "CaesarAIMovies",
+    "slug": "caesaraimovies",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "androidStatusBar": {
+      "backgroundColor": "#141212",
+      "barStyle": "dark-content",
+      "translucent": true,
+      "hidden": false
+    },
+    "androidNavigationBar": {
+      "backgroundColor": "#141212"
+    },
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#141212"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png"
+      },
+      "package": "com.palondrome.caesaraimovies"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-video"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d5cefe2c-2e37-444e-82a9-4f046af6e9d3"
+      }
+    },
+    "owner": "palondrome"
+  }
+}

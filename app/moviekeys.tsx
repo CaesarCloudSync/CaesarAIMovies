@@ -1,0 +1,2 @@
+
+export const moviekeys = { "apikey": "fe9d9489a53300b8da850e6349475c52", "read_access_token": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZTlkOTQ4OWE1MzMwMGI4ZGE4NTBlNjM0OTQ3NWM1MiIsInN1YiI6IjY1YTU5NWE2ZDA1YTAzMDBjOGE5ZWJjNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ArysHTlTdStAaVZDOpAoFLDyZkcp4CL3jMgfbpnVdyY" }
