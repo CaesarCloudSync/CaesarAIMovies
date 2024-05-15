@@ -10,6 +10,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import Header from "@/components/header/header";
 import { moviekeys } from "./moviekeys";
 import MovieCard from "@/components/moviecard/moviecard";
+import { useLocalSearchParams } from "expo-router";
 export default function Search(){
     const netInfo = useNetInfo();
     const [text,setText] = useState("");
@@ -18,7 +19,10 @@ export default function Search(){
     const [searchpagenum,setSearchPageNum] = useState(1);
     const [recentremoved,setRecentRemoved] = useState(false)
     const [moviesearchquery,setMovieSearchQuery] = useState("");
-    let [pagenum,setPageNum] = useState(1)
+    const [pagenum,setPageNum] = useState(1)
+    const {mediatype} = useLocalSearchParams();
+    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv":mediatype)
+ 
 
 
     const getsearchresults = async (usingcarousel=false) =>{
@@ -28,7 +32,7 @@ export default function Search(){
                 headers: { Authorization: `Bearer ${moviekeys.read_access_token}` }
             };
             
-            const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${moviesearchquery}&language=en-US&page=${searchpagenum}`,config)
+            const response = await axios.get(`https://api.themoviedb.org/3/search/${mediatypename}?query=${moviesearchquery}&language=en-US&page=${searchpagenum}`,config)
             let result = response.data
     
             if (result.results.length > 0){

@@ -124,7 +124,7 @@ export default function AmariMovies(){
         }
 
             />
-            <NavigationFooter style={{flex:0.1}} currentpage={"home"}/>
+            <NavigationFooter style={{flex:0.1}} currentpage={"home"} mediatype={"movie"}/>
 
 
         </View>

@@ -6,14 +6,16 @@ import { useRouter } from 'expo-router';
 import { TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-export default function NavigationFooter({currentpage,style}:any){
+import { usePathname } from 'expo-router';
+export default function NavigationFooter({currentpage,mediatype,style}:any){
     const router = useRouter();
     const navnextpage =async (route:string) => {
         if (route === "home"){
             router.push("/")
         }
         else if (route === "search"){
-            router.push("/search")
+            
+            router.push({ pathname: "/search", params: {"mediatype":mediatype}});
         }
         else if (route === "downloads"){
             router.push("/downloads")
