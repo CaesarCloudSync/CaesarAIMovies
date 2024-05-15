@@ -21,7 +21,8 @@ export default function Search(){
     const [moviesearchquery,setMovieSearchQuery] = useState("");
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
-    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv":mediatype)
+    console.log(mediatype)
+    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv":mediatype === "anime" ? "tv" : mediatype)
  
 
 
@@ -136,7 +137,7 @@ export default function Search(){
         }
 
             />}
-        <NavigationFooter style={{flex:0.1}} currentpage={"search"}/>
+        <NavigationFooter style={{flex:0.1}} currentpage={"search"} mediatype={mediatype}/>
         </View>
     )
 }
