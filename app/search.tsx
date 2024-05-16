@@ -1,7 +1,6 @@
 import { TextInput, View ,FlatList,Text,TouchableOpacity,Image} from "react-native";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MangaCover from "@/components/homecomponents/MangaCover";
 import NavigationFooter from "./footer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";

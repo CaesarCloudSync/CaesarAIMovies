@@ -7,8 +7,7 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import MangaCover from "@/components/homecomponents/MangaCover";
-import VolumeCover from "@/components/mangapagecomponents/volumecover";
+
 export default function Downloads(){
     const [progress,setProgress] = useState({});
     const [downloadedmanga,setDownloadedManga]  = useState<any>([]);
@@ -70,11 +69,9 @@ export default function Downloads(){
                     data={downloadedmanga}
                     renderItem={({item,index}:any) => {
         
-                            return (
+                            return (<View></View>
                               
-                                <VolumeCover key={index}  volumeno={item.volumeno} mangaid={item.mangaid} title={item.title} cover_id={item.cover_id}  cover_art={item.cover_art} setRecentManga={setDownloadedManga}></VolumeCover> 
-                                
-                                
+                       
 
                 
                             )
