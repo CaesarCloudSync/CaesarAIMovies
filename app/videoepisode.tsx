@@ -1,12 +1,11 @@
 
 import axios from "axios";
 
-import { useEffect, useState } from "react";
-import { View,Text } from "react-native";
+import { useEffect, useState} from "react";
+import { View,Text,StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import VideoPlayer from "expo-video-player";
-import { ResizeMode } from 'expo-av'
 import { useNavigation } from "expo-router";
 import { StatusBar, setStatusBarHidden } from 'expo-status-bar'
 import { Dimensions } from "react-native";
@@ -19,7 +18,10 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Image } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Video, ResizeMode } from 'expo-av';
+import { ActivityIndicator } from "react-native";
 export default function VideoEpisode(){
+  const video = useRef<any>(null);
     const navigation = useNavigation();
     const router = useRouter();
     const [showBack] = useState(true);
@@ -30,11 +32,13 @@ export default function VideoEpisode(){
     const refVideo = useRef(null)
     const refVideo2 = useRef<any>(null)
     const refScrollView = useRef<any>(null)
+    const [status, setStatus] = useState({});
+    const [isPreloading,setIsPreloading] = useState(false)
     const navnextep =async () => {
       //console.log(episodeid)
       //console.log(parseInt(episodeid.replace(/^\D+/g, '').trim()))
       let current_epnum:any = parseInt(number) 
-      console.log(current_epnum)
+      //console.log(current_epnum)
       if (current_epnum <parseInt(numeps) ){
         let ep_prefix = episodeid.substring(0, episodeid.length - 1);
         let next_number = (current_epnum + 1).toString()
@@ -79,6 +83,22 @@ export default function VideoEpisode(){
     router.push("/library")
 }
 
+const changeorientation =async () => {
+  let orientation = await ScreenOrientation.getOrientationAsync(); 
+
+  if (orientation === 1){
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
+      video.current.setStatusAsync({
+        shouldPlay: true,
+      })
+      setInFullsreen2(true)
+  }
+  else{
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
+      setInFullsreen2(false)
+  }
+}
+
 
     //console.log(animeid)
     //console.log(haswatchedcookie,"hi")
@@ -91,49 +111,40 @@ export default function VideoEpisode(){
           </TouchableOpacity>}
         <View style={{top:inFullscreen2 ? 0 : 300}}>
         <View style={{justifyContent:"center",alignItems:"center"}}><Text style={{color:"white"}}>Episode: {number}</Text></View>
-        <VideoPlayer
-        
-        videoProps={{
-          shouldPlay: true,
-          resizeMode: ResizeMode.CONTAIN,
-          source: {
+        {isPreloading &&
+            <ActivityIndicator
+                animating
+                color={"gray"}
+                size="large"
+                style={{ flex: 1, position:"absolute", top:"50%", left:"45%" }}
+            />
+        }
+        <Video
+          ref={video}
+          style={{
+            alignSelf: 'center',
+            width: 420,
+            height: 300,
+          }}
+          onFullscreenUpdate={(e)=>{
+              changeorientation()
+          }}
+          shouldPlay={true}
+          source={{
             uri: `${animelink}`,
-          },
-          ref: refVideo2,
-        }}
-        icon={{
-          play: <FontAwesome name="play" size={24} color="white" />,
-          pause: <AntDesign name="pause" size={24} color="white" />,
-        }}
-        mute={{
-          enterMute: () => setIsMute(!isMute),
-          exitMute: () => setIsMute(!isMute),
-          isMute,
-        }}
-        fullscreen={{
-          inFullscreen: inFullscreen2,
-          enterFullscreen: async () => {
-            setStatusBarHidden(true, 'fade')
-            setInFullsreen2(!inFullscreen2)
-            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
-            refVideo2.current.setStatusAsync({
-              shouldPlay: true,
-            })
-          },
-          exitFullscreen: async () => {
-            setStatusBarHidden(true, 'fade')
-            setInFullsreen2(!inFullscreen2)
-            await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.DEFAULT)
-          },
-        }}
-        
-        style={{
-          videoBackgroundColor: 'black',
-          height: inFullscreen2 ? Dimensions.get('window').width : 250,
-          width: inFullscreen2 ? Dimensions.get('window').height : 500,
-        }}
-      />
-      <View style={{flex:1,height:200,width:200,flexDirection:"row",gap:30,justifyContent:"center",left:120}}>
+          }}
+          onPlaybackStatusUpdate={(e) =>{console.log(e)}}
+          onLoadStart={() => setIsPreloading(true)}
+          useNativeControls
+          onReadyForDisplay={() => setIsPreloading(false)}
+          resizeMode={ResizeMode.CONTAIN}
+          isLooping
+        >
+          
+        </Video>
+
+
+      <View style={{flex:1,height:200,width:200,flexDirection:"row",gap:30,justifyContent:"center",left:110}}>
       <TouchableOpacity onPress={() =>{navprevep()}}>
       <MaterialIcons name="skip-previous" size={24} color="white" />
         </TouchableOpacity>
@@ -150,10 +161,4 @@ export default function VideoEpisode(){
     )
 }
 
-/*
 
-        <View onClick={() =>{getepisode()}} style={{display:"flex",border:"1px solid black",backgroundColor:haswatchedcookie === "true" ? "blue":"white",opacity:haswatchedcookie === "true" ? "0.2":"1",borderRadius:"5px",height:"30px",width:"30px",justifyContent:"center",alignItems:"center",cursor:"pointer"}}>
-            <a style={{color:haswatchedcookie === "true" ? "white":"black"}}>{number}</a>
-
-            
-        </View>*/
