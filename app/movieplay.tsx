@@ -40,7 +40,7 @@ export default function VideoScreen() {
    }}
    onNavigationStateChange={
     request => {
-        console.log(request.url,",hil")
+        //console.log(request.url,",hil")
         if (request.url.includes('https')) {
             return false;
         } else return true;

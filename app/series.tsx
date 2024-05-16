@@ -14,6 +14,7 @@ import { StatusBar } from "expo-status-bar";
 import NavigationFooter from "./footer";
 import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
 import { AntDesign } from '@expo/vector-icons';
+import SeriesCard from "@/components/seriescomponent/seriescard";
 export default function AmariAnime(){
 
     const router = useRouter();
@@ -31,8 +32,9 @@ export default function AmariAnime(){
             headers: { Authorization: `Bearer ${moviekeys.read_access_token}` }
         };
         
-        let final_date = "2015-03-10"
-        const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?language=en-US&page=${pagenum}&with_genres=16&with_keywords=210024|287501&first_air_date.gte=${final_date}`,config)
+
+        const response = await axios.get(`https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=${pagenum}`,config)
+    
         let result = response.data
         //console.log(result)
         setUpcomingFilms(result.results)
@@ -87,8 +89,8 @@ export default function AmariAnime(){
                     <Text style={{color:"white",fontSize:20}}>Amari Anime</Text>
                     <View style={{flexDirection:"row",gap:10}}>
                         <TouchableOpacity onPress={() =>{router.push("/")}} ><Text style={{color:"white",padding:5}}>Movies</Text></TouchableOpacity>
-                        <TouchableOpacity style={{backgroundColor:"blue",borderRadius:5,padding:4}}  ><Text style={{color:"white",padding:5}}>Anime</Text></TouchableOpacity>
-                        <TouchableOpacity onPress={() =>{router.push("/series")}} ><Text style={{color:"white",padding:5}}>Series</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() =>{router.push("/anime")}} ><Text style={{color:"white",padding:5}}>Anime</Text></TouchableOpacity>
+                        <TouchableOpacity  style={{backgroundColor:"blue",borderRadius:5,padding:4}}   ><Text style={{color:"white",padding:5}}>Series</Text></TouchableOpacity>
                     </View>
                     
     
@@ -117,7 +119,7 @@ export default function AmariAnime(){
             renderItem={({item,index}:any) => {
                 let film = item
                     return (
-                        <AnimeSeriesCard key={index} film={film}/>
+                        <SeriesCard key={index} film={film}/>
                     )
             }
         }

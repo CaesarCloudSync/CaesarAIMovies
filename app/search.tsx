@@ -13,6 +13,7 @@ import MovieCard from "@/components/moviecard/moviecard";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
 import { Entypo } from '@expo/vector-icons';
+import SeriesCard from "@/components/seriescomponent/seriescard";
 export default function Search(){
     const netInfo = useNetInfo();
     const router = useRouter();
@@ -25,8 +26,8 @@ export default function Search(){
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
     
-    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv":mediatype === "anime" ? "tv" : mediatype)
- 
+    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv": mediatype)
+  
 
 
     const getsearchresults = async (usingcarousel=false) =>{
@@ -82,6 +83,7 @@ export default function Search(){
         }
      },[netInfo,searchpagenum])
      if (netInfo.isInternetReachable === true){
+        
     return(
         <View style={{flex:1,backgroundColor:"#141212"}}>
                 <StatusBar  hidden/>
@@ -130,21 +132,27 @@ export default function Search(){
             data={searchresults}
             renderItem={({item,index}:any) => {
                 let film = item
-                    if (mediatype === "anime"){
-                        return(
-                            <AnimeSeriesCard key={index} film={film}/>
-                        )
+                //console.log(film)
+                    if (mediatype === "tv"){
+                        if (film.original_language === "ja"){
+                            return(
+                                <AnimeSeriesCard key={index} film={film}/>
+                            )
+                        }
+                        else{
+                            return(
+                                <SeriesCard key={index} film={film}/>
+                            )
+                            
+                        }
+
                     }
                     else if (mediatype === "movie"){
                         return(
                             <MovieCard key={index} film={film}/>
                         )
                     }
-                    else if (mediatype === "tv"){
-                        return(
-                            <MovieCard key={index} film={film}/>
-                        )
-                    }
+
                     else{
                         return(<MovieCard key={index} film={film}/>)
                     }

@@ -86,7 +86,7 @@ export default function AmariMovies(){
                     <View style={{flexDirection:"row",gap:10}}>
                         <TouchableOpacity style={{backgroundColor:"blue",borderRadius:5,padding:5}}><Text style={{color:"white"}}>Movies</Text></TouchableOpacity>
                         <TouchableOpacity onPress={() =>{router.push("/anime")}}   ><Text style={{color:"white",padding:5}}>Anime</Text></TouchableOpacity>
-                        <TouchableOpacity  ><Text style={{color:"white",padding:5}}>Series</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() =>{router.push("/series")}} ><Text style={{color:"white",padding:5}}>Series</Text></TouchableOpacity>
                     </View>
                     
     
