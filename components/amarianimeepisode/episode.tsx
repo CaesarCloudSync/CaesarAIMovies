@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { View,Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-export default function Episode({episodeid,number}:any){
+export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path}:any){
     const router = useRouter();
     const [cookie_key,setCookieKey] = useState(`${episodeid}`)
+
     //const [haswatchedcookie,setHasWatchedCookie] = useState(read_cookie(cookie_key))
     const getepisode = async () =>{
         const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
@@ -18,7 +19,7 @@ export default function Episode({episodeid,number}:any){
         //setHasWatchedCookie("true")
         console.log(video.url)
   
-        router.push({ pathname: "/videoepisode", params: {"animelink":video.link}});
+        router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path}});
 
 
     }

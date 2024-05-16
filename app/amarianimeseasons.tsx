@@ -6,7 +6,11 @@ import { useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { View,Text,Image, TouchableOpacity, FlatList } from "react-native";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "expo-router";
+import { AntDesign } from '@expo/vector-icons';
 export default function AmariAnimeSeasons(){
+    const navigate = useNavigation();
     const router = useRouter();
 
     const {series,film_name,poster_path}:any  = useLocalSearchParams();
@@ -59,7 +63,7 @@ export default function AmariAnimeSeasons(){
         
     }
     const navepisodes = async (id:any,url:any) =>{
-        router.push({ pathname: "/amarianimeepisodes", params: {"animeid":id}});
+        router.push({ pathname: "/amarianimeepisodes", params: {"animeid":id,"film_name":film_name,"poster_path":poster_path}});
      
 
 
@@ -70,6 +74,10 @@ export default function AmariAnimeSeasons(){
     },[])
     return(
         <View style={{backgroundColor:"#1e1e1e",flex:1}}>
+            <TouchableOpacity onPress={() =>{router.push("/anime")}}>
+            <AntDesign name="arrowleft" size={24} color="white" />
+            </TouchableOpacity>
+            <StatusBar hidden/>
             <View style={{position:"relative",top:50,flex:1}}>
             <View style={{flex:0.6,justifyContent:"center",alignItems:"center",flexDirection:"column",gap:2}}
             >
