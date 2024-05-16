@@ -8,11 +8,12 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function SeriesCard({film}:any){
     const router = useRouter();
 
     const [isonwishlist,setIsOnWishList]= useState(false)
+    //console.log("hi")
 
     const getvideo = async () =>{
         const config = {
@@ -51,6 +52,7 @@ export default function SeriesCard({film}:any){
         }
 
     }
+
     useEffect(()=>{
         checkwishlist()
     },[isonwishlist])

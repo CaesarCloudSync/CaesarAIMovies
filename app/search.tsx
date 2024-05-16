@@ -25,6 +25,7 @@ export default function Search(){
     const [moviesearchquery,setMovieSearchQuery] = useState("");
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
+    const [recentmanga,setRecentManga]  = useState<any>([]);
     
     const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv": mediatype)
   
@@ -56,6 +57,14 @@ export default function Search(){
         }
 
     }
+    const getrecentmanga =async () => {
+        let keys = await AsyncStorage.getAllKeys()
+        const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("media:"))}))
+         //console.log(items)
+         const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
+        setRecentManga(mangaitems)
+        
+     }
     const searchnavleft = () =>{
         if (searchpagenum !== 1){
             setSearchPageNum(searchpagenum -1)
@@ -78,10 +87,10 @@ export default function Search(){
      useEffect(() =>{
         if (searchresults.length === 0){
             if (netInfo.isInternetReachable === true){
-            getsearchresults(true)
+                getrecentmanga()
         }
         }
-     },[netInfo,searchpagenum])
+     },[netInfo,recentmanga])
      if (netInfo.isInternetReachable === true){
         
     return(
@@ -117,7 +126,47 @@ export default function Search(){
                 
                 
             </View>
-            {searchresults.length === 0 && <View style={{flex:1}}></View>}
+            {recentmanga.length !== 0 && searchresults.length === 0&&
+                <View style={{flex:1,padding:30}}> 
+                        <FlatList
+                        numColumns={2}
+                        style={{flex:1, flexGrow: searchresults.length === 0 ?1 :0 }}
+                        
+                        columnWrapperStyle={{    flexGrow: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',gap:20}}
+                        data={recentmanga}
+                        renderItem={({item,index}:any) => {
+                            let film = item
+                        
+                                if (mediatype === "tv"){
+                                    if (film.original_language === "ja"){
+                                        return(
+                                            <AnimeSeriesCard key={index} film={film}/>
+                                        )
+                                    }
+                                    else{
+                                        return(
+                                            <SeriesCard key={index} film={film}/>
+                                        )
+                                        
+                                    }
+            
+                                }
+                                else if (mediatype === "movie"){
+                                    return(
+                                        <MovieCard key={index} film={film}/>
+                                    )
+                                }
+            
+                                else{
+                                    return(<MovieCard key={index} film={film}/>)
+                                }
+                        }
+                    }
+
+                /></View>}
+            {searchresults.length === 0 && recentmanga.length === 0 && <View style={{flex:1}}></View>}
             {searchresults.length !== 0 &&
             
             <FlatList
@@ -168,6 +217,7 @@ else if (netInfo.isInternetReachable === null){
     return(
         <View style={{flex:1,backgroundColor:"#141212"}}>
         <StatusBar  hidden/>
+
         {searchresults.length !== 0 &&
         <TouchableOpacity onPress={() =>{setSearchResults([])}} style={{alignSelf:"flex-end"}}>
         <AntDesign name="arrowright" size={24} color="white" />

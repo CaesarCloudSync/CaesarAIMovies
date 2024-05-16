@@ -8,16 +8,16 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function AnimeSeriesCard({film}:any){
     const router = useRouter();
 
     const [isonwishlist,setIsOnWishList]= useState(false)
-
     const getvideo = async () =>{
         const config = {
             headers: { Authorization: `Bearer ${moviekeys.read_access_token}` }
         };
+        
 
         router.push({ pathname: "/amarianimeseasons", params: {"series":film.name.replaceAll(" ","-",),"film_name":film.name,"poster_path":film.poster_path}});
 
@@ -51,13 +51,17 @@ export default function AnimeSeriesCard({film}:any){
         }
 
     }
+    const storeasrecent =async () => {
+        AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language}))
+        router.push("/search")
+    }
     useEffect(()=>{
         checkwishlist()
     },[isonwishlist])
     return(
         <View>
         <View style={{display:"flex",flexDirection:"column"}}>
-            <TouchableOpacity onPress={() =>{getvideo()}} >
+            <TouchableOpacity onLongPress={() =>{storeasrecent()}} onPress={() =>{getvideo()}} >
             <Image src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
             </TouchableOpacity>
             <View style={{width:175,flex:1,gap:2}}>

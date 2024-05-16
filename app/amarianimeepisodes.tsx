@@ -39,7 +39,7 @@ export default function AmariAnimeEpisodes(){
         
     }
     const navseasons = () => {
-        router.push({ pathname: "/amarianimeseasons", params: {"animeid":animeid,"film_name":film_name,"poster_path":poster_path}});
+        router.push({ pathname: "/amarianimeseasons", params: {"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"src":"animeepisodes"}});
         
         
     }

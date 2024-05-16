@@ -74,7 +74,7 @@ export default function AmariAnimeSeasons(){
     },[])
     return(
         <View style={{backgroundColor:"#1e1e1e",flex:1}}>
-            <TouchableOpacity onPress={() =>{router.push("/anime")}}>
+            <TouchableOpacity onPress={() =>{navigate.goBack()}}>
             <AntDesign name="arrowleft" size={24} color="white" />
             </TouchableOpacity>
             <StatusBar hidden/>
@@ -83,7 +83,9 @@ export default function AmariAnimeSeasons(){
             >
 
                 <Text style={{color:"white"}}>{film_name}</Text>
+                <TouchableOpacity onPress={() =>{router.push("/anime")}}>
                 <Image  src={`https://image.tmdb.org/t/p/original/${poster_path}`} style={{width:150,height:250,cursor:"pointer",borderRadius:5}}></Image>
+                </TouchableOpacity>
                 <Text style={{color:"white",margin:30,width:300}}>{description}</Text>
                 {/*
                 <View>
