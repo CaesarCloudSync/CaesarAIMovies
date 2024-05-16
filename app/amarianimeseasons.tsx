@@ -5,7 +5,9 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { View,Text,Image, TouchableOpacity, FlatList } from "react-native";
+import { useRouter } from "expo-router";
 export default function AmariAnimeSeasons(){
+    const router = useRouter();
 
     const {series,film_name,poster_path}:any  = useLocalSearchParams();
     console.log(film_name)
@@ -57,13 +59,9 @@ export default function AmariAnimeSeasons(){
         
     }
     const navepisodes = async (id:any,url:any) =>{
-        console.log(url)
-        /*
-        navigate({
-            pathname: '/amarianimeepisodes',
-            search: `?animeid=${id}`,
-            
-          });*/
+        router.push({ pathname: "/amarianimeepisodes", params: {"animeid":id}});
+     
+
 
     }
     useEffect(() =>{
