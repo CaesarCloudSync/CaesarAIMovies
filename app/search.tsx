@@ -203,12 +203,12 @@ export default function Search(){
                     if (mediatypename === "tv" ){
                         if (film.original_language === "ja"){
                             return(
-                                <AnimeSeriesCard key={index} film={film}/>
+                                <AnimeSeriesCard key={index} film={film} setRecentManga={setRecentManga} searchadd={true}/>
                             )
                         }
                         else{
                             return(
-                                <SeriesCard key={index} film={film}/>
+                                <SeriesCard key={index} film={film} setRecentManga={setRecentManga} searchadd={true}/>
                             )
                             
                         }

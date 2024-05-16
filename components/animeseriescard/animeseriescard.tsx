@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { usePathname } from "expo-router";
-export default function AnimeSeriesCard({film,setRecentManga}:any){
+export default function AnimeSeriesCard({film,setRecentManga,searchadd}:any){
     const pathname = usePathname();
     const router = useRouter();
 
@@ -55,8 +55,16 @@ export default function AnimeSeriesCard({film,setRecentManga}:any){
     }
     const storeasrecent =async () => {
         if (pathname === "/search"){
-            await AsyncStorage.removeItem(`media:${film.id}`)
-            setRecentManga([])
+            if (searchadd === true){
+                console.log("hi")
+                AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"id":film.id,"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language,"mediatype":"tv"}))
+                router.push("/search")
+            }
+            else{
+                await AsyncStorage.removeItem(`media:${film.id}`)
+                setRecentManga([])
+            }
+
 
         }
         else{
