@@ -8,7 +8,7 @@ import { useNavigation, useRouter, useLocalSearchParams, router } from "expo-rou
 
 import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
-
+import { AntDesign } from "@expo/vector-icons";
 export default function MovieCard({film}:any){
     const router = useRouter();
 
@@ -61,16 +61,16 @@ export default function MovieCard({film}:any){
             <TouchableOpacity onPress={() =>{getvideo()}} >
             <Image src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
             </TouchableOpacity>
-            <View style={{width:100,marginTop:30}}>
+            <View style={{width:175,flex:1,gap:2}}>
                 <Text style={{color:"white",fontSize:12}}>{film.title}</Text>
                 <Text style={{color:"white",fontSize:12}}>Vote Count: {film.vote_count}</Text>
                 
                 <Text style={{color:"white",fontSize:12}}>Release Date: {film.release_date}</Text>
                 <Text style={{color:"white",fontSize:12}}>Rating: {film.vote_average.toFixed(2)}</Text>
                 {isonwishlist === false ? 
-                <TouchableOpacity onPress={() =>{addtowishlist()}} ><Text style={{color:"white"}}>Non Favourite</Text></TouchableOpacity>
+                <TouchableOpacity style={{alignSelf:"flex-end"}} onPress={() =>{addtowishlist()}} ><AntDesign name="hearto" size={24} color="white" /></TouchableOpacity>
                 :
-                <TouchableOpacity onPress={() =>{removefromwishlist()}} ><Text style={{color:"white"}}>Favourit</Text></TouchableOpacity>
+                <TouchableOpacity style={{alignSelf:"flex-end"}}  onPress={() =>{removefromwishlist()}} ><AntDesign name="heart" size={24} color="white" /></TouchableOpacity>
                 }
                 
             </View>

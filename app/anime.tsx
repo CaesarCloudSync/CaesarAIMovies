@@ -13,6 +13,7 @@ import MovieCard from "@/components/moviecard/moviecard";
 import { StatusBar } from "expo-status-bar";
 import NavigationFooter from "./footer";
 import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
+import { AntDesign } from '@expo/vector-icons';
 export default function AmariAnime(){
 
     const router = useRouter();
@@ -98,11 +99,11 @@ export default function AmariAnime(){
 
             </View>
             <View style={{flex:0.1,gap:20,justifyContent:"center",alignItems:"center",marginTop:20,flexDirection:"row"}}>
-                <TouchableOpacity onPress={()=>{navleft()}}><Text style={{color:"white"}}>Left</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navleft()}}><AntDesign name="arrowleft" size={24} color="white" /></TouchableOpacity>
                 {pagecarousel.map((index) =>{
                     return( <View style={{backgroundColor:index+ pagenum === pagenum ? "blue" :"transparent",borderRadius:5,padding:5}}><TouchableOpacity style={{cursor:"pointer"}} onPress={() =>{navpick(index+ pagenum)}}><Text style={{color:"white"}}>{index + pagenum}</Text></TouchableOpacity></View>)
                 }) }
-                <TouchableOpacity onPress={()=>{navright()}}><Text style={{color:"white"}}>Right</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=>{navright()}}><AntDesign name="arrowright" size={24} color="white" /></TouchableOpacity>
             </View>  
 
 

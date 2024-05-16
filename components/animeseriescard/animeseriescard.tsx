@@ -4,7 +4,7 @@ import axios from "axios"
 import { moviekeys } from "@/app/moviekeys";
 
 import { useNavigation, useRouter, useLocalSearchParams, router } from "expo-router";
-
+import { AntDesign } from '@expo/vector-icons';
 
 import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
@@ -37,9 +37,8 @@ export default function AnimeSeriesCard({film}:any){
         }
     }
     const addtowishlist = async () =>{
-        const response = await axios.post(`https://amarimovieswishlist-qqbn26mgpa-nw.a.run.app/addwishlist?themoviedbid=${film.id}`,{"movie":film.title,"themoviedbid":film.id,"type":"movie"})
+        const response = await axios.post(`https://amarimovieswishlist-qqbn26mgpa-nw.a.run.app/addwishlist?themoviedbid=${film.id}`,{"movie":film.name,"themoviedbid":film.id,"type":"tv"})
         let result = response.data
-        console.log(result)
         if ("message" in result){
                 setIsOnWishList(true)
         }
@@ -54,24 +53,23 @@ export default function AnimeSeriesCard({film}:any){
     }
     useEffect(()=>{
         checkwishlist()
-    },[])
-    //console.log(film)
+    },[isonwishlist])
     return(
         <View>
         <View style={{display:"flex",flexDirection:"column"}}>
             <TouchableOpacity onPress={() =>{getvideo()}} >
             <Image src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
             </TouchableOpacity>
-            <View style={{width:100,marginTop:30}}>
-                <Text style={{color:"white",fontSize:12}}>{film.title}</Text>
+            <View style={{width:175,flex:1,gap:2}}>
+                <Text style={{color:"white",fontSize:12}}>{film.name}</Text>
                 <Text style={{color:"white",fontSize:12}}>Vote Count: {film.vote_count}</Text>
                 
                 <Text style={{color:"white",fontSize:12}}>Release Date: {film.release_date}</Text>
                 <Text style={{color:"white",fontSize:12}}>Rating: {film.vote_average.toFixed(2)}</Text>
                 {isonwishlist === false ? 
-                <TouchableOpacity onPress={() =>{addtowishlist()}} ><Text style={{color:"white"}}>Non Favourite</Text></TouchableOpacity>
+                <TouchableOpacity style={{alignSelf:"flex-end"}} onPress={() =>{addtowishlist()}} ><AntDesign name="hearto" size={24} color="white" /></TouchableOpacity>
                 :
-                <TouchableOpacity onPress={() =>{removefromwishlist()}} ><Text style={{color:"white"}}>Favourit</Text></TouchableOpacity>
+                <TouchableOpacity style={{alignSelf:"flex-end"}}  onPress={() =>{removefromwishlist()}} ><AntDesign name="heart" size={24} color="white" /></TouchableOpacity>
                 }
                 
             </View>

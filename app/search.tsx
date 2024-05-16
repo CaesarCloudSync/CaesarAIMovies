@@ -12,6 +12,7 @@ import { moviekeys } from "./moviekeys";
 import MovieCard from "@/components/moviecard/moviecard";
 import { useLocalSearchParams } from "expo-router";
 import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
+import { Entypo } from '@expo/vector-icons';
 export default function Search(){
     const netInfo = useNetInfo();
     const [text,setText] = useState("");
@@ -91,7 +92,7 @@ export default function Search(){
         
                 <TextInput
                         onSubmitEditing={() =>{getsearchresults()}}
-                        placeholder="What manga would you like to read?"
+                        placeholder="What anime would you like to watch?"
                         placeholderTextColor={'black'}
                         
                         style={ {
@@ -107,13 +108,10 @@ export default function Search(){
                         onChangeText={setMovieSearchQuery}
                         value={moviesearchquery}
                     />
-                <View style={{backgroundColor:"blue",borderTopRightRadius:2,borderBottomRightRadius:2,height:30}}>
-                    <TouchableOpacity onPress={() =>{getsearchresults()}} >
-                        <Text>
-                            Right
-                        </Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={{flex:0.13,marginLeft:15}}>
+                <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
+            </View>
+                
                 
             </View>
             {searchresults.length === 0 && <View style={{flex:1}}></View>}
