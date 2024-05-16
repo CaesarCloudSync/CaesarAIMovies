@@ -86,7 +86,7 @@ export default function VideoEpisode(){
     <View style={{backgroundColor:"black",flex:1,justifyContent:"center",alignItems:"center"}}>
       <StatusBar hidden/>
         {!inFullscreen2&&
-          <TouchableOpacity style={{position:"absolute",top:10,zIndex:99,alignSelf:"flex-start"}} onPress={() =>{navepisodes()}}>
+          <TouchableOpacity style={{position:"absolute",top:10,zIndex:99,alignSelf:"flex-start"}} onPress={() =>{navigation.goBack()}}>
           <AntDesign name="arrowleft" size={30} color="white" />
           </TouchableOpacity>}
         <View style={{top:inFullscreen2 ? 0 : 300}}>
@@ -137,7 +137,7 @@ export default function VideoEpisode(){
       <TouchableOpacity onPress={() =>{navprevep()}}>
       <MaterialIcons name="skip-previous" size={24} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onLongPress={()=>{setcurrentreading()}}>
+        <TouchableOpacity onPress={() =>{navepisodes()}} onLongPress={()=>{setcurrentreading()}}>
             <Image style={{width:40,height:30}} alt="hello" source={require("./CaesarAIMangaLogo.png")}></Image>
             </TouchableOpacity>
         <TouchableOpacity onPress={() =>{navnextep()}}>
