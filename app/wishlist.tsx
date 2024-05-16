@@ -29,7 +29,7 @@ export default function Wishlist(){
     useEffect(() =>{
         getfilmdetails()
         
-    },[])
+    },[wishlist])
     return(
         <View style={{backgroundColor:"#141212",flex:1,justifyContent:"center",alignItems:"center"}}>
             <StatusBar hidden/>
@@ -52,6 +52,7 @@ export default function Wishlist(){
             data={wishlist}
             renderItem={({item,index}:any) => {
                 let wish = item
+                console.log(wish)
                     return (
                         <Wish key={wish.themoviedbid} wishlist={wishlist}setWishlist={setWishlist}  themoviedbid={wish.themoviedbid} broadcasttype={wish.broadcasttype}/>
                     )

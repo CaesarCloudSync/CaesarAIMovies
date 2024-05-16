@@ -48,11 +48,7 @@ export default function Wish({themoviedbid,broadcasttype,wishlist,setWishlist}:a
     const removefromwishlist = async () =>{
         const response = await axios.delete(`https://amarimovieswishlist-qqbn26mgpa-nw.a.run.app/deletefromwishlist?themoviedbid=${film.id}`)
         let result = response.data
-        if ("message" in result){
-            let new_wishlist  = wishlist.filter((a:any) => {console.log(a.themoviedbid,film.id);return(a.themoviedbid !== film.id)})
-            setWishlist(new_wishlist);
-
-        }
+        setWishlist([]);
 
     }
     useEffect(()=>{
@@ -66,7 +62,7 @@ export default function Wish({themoviedbid,broadcasttype,wishlist,setWishlist}:a
             {film !== "" &&
                     <View style={{display:"flex",flexDirection:"column"}}>
                        
-                    <TouchableOpacity onPress={() =>{getvideo()}}>
+                    <TouchableOpacity onLongPress={() =>{removefromwishlist()}} onPress={() =>{getvideo()}}>
                     <Image  src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} style={{width:150,height:250,cursor:"pointer",borderRadius:5}}></Image>
                     </TouchableOpacity>
                     <View style={{width:100,marginTop:30}}>
@@ -75,7 +71,7 @@ export default function Wish({themoviedbid,broadcasttype,wishlist,setWishlist}:a
                         
                         <Text style={{color:"white",fontSize:12}}>Release Date: {broadcasttype === "movie" ? film.release_date:film.first_air_date }</Text>
                         <Text style={{color:"white",fontSize:12}}>Rating: {film.vote_average.toFixed(2)}</Text>
-                        <TouchableOpacity onPress={() =>{removefromwishlist()}} style={{cursor:"pointer"}}><Text>Favourite</Text></TouchableOpacity>
+        
                     </View>
         
                 </View>}
