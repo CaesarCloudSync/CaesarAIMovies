@@ -20,8 +20,10 @@ import { Image } from "react-native"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Video, ResizeMode } from 'expo-av';
 import { ActivityIndicator } from "react-native";
+import * as NavigationBar from 'expo-navigation-bar';
 export default function VideoEpisode(){
   const video = useRef<any>(null);
+    const visibility = NavigationBar.useVisibility()
     const navigation = useNavigation();
     const router = useRouter();
     const [showBack] = useState(true);
@@ -34,6 +36,7 @@ export default function VideoEpisode(){
     const refScrollView = useRef<any>(null)
     const [status, setStatus] = useState({});
     const [isPreloading,setIsPreloading] = useState(false)
+
     const navnextep =async () => {
       ////console.log(episodeid)
       ////console.log(parseInt(episodeid.replace(/^\D+/g, '').trim()))
@@ -84,13 +87,17 @@ export default function VideoEpisode(){
 }
 
 const changeorientation =async () => {
+
   let orientation = await ScreenOrientation.getOrientationAsync(); 
+  console.log(orientation)
 
   if (orientation === 1){
+
       await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
       video.current.setStatusAsync({
         shouldPlay: true,
       })
+
       setInFullsreen2(true)
   }
   else{
@@ -145,7 +152,7 @@ const changeorientation =async () => {
           onLoadStart={() => setIsPreloading(true)}
           useNativeControls
           onReadyForDisplay={() => setIsPreloading(false)}
-          resizeMode={ResizeMode.CONTAIN}
+          resizeMode={ResizeMode.COVER}
           isLooping
           onError={() =>{
         ////console.log("hi")
@@ -161,7 +168,7 @@ const changeorientation =async () => {
       <TouchableOpacity onPress={() =>{navprevep()}}>
       <MaterialIcons name="skip-previous" size={24} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() =>{navepisodes()}} onLongPress={()=>{setcurrentreading()}}>
+        <TouchableOpacity onPress={() =>{    NavigationBar.setVisibilityAsync("hidden");   }} onLongPress={()=>{setcurrentreading()}}>
             <Image style={{width:40,height:30}} alt="hello" source={require("./CaesarAIMoviesLogo.png")}></Image>
             </TouchableOpacity>
         <TouchableOpacity onPress={() =>{navnextep()}}>
