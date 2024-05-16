@@ -10,11 +10,12 @@ import { useNetInfo } from "@react-native-community/netinfo";
 import Header from "@/components/header/header";
 import { moviekeys } from "./moviekeys";
 import MovieCard from "@/components/moviecard/moviecard";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
 import { Entypo } from '@expo/vector-icons';
 export default function Search(){
     const netInfo = useNetInfo();
+    const router = useRouter();
     const [text,setText] = useState("");
     const [searchpagecarousel,setSearchPageCarousel] = useState([0,1,2,3])
     const [searchresults,setSearchResults] = useState([]);
@@ -23,7 +24,7 @@ export default function Search(){
     const [moviesearchquery,setMovieSearchQuery] = useState("");
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
-    console.log(mediatype)
+    
     const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv":mediatype === "anime" ? "tv" : mediatype)
  
 
@@ -108,9 +109,9 @@ export default function Search(){
                         onChangeText={setMovieSearchQuery}
                         value={moviesearchquery}
                     />
-            <View style={{flex:0.13,marginLeft:15}}>
+            <TouchableOpacity onPress={() =>{router.push("/wishlist")}} style={{flex:0.13,marginLeft:15}}>
                 <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
-            </View>
+            </TouchableOpacity>
                 
                 
             </View>

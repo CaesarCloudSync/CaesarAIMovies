@@ -8,6 +8,7 @@ import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from 'expo-router';
 import {Dimensions} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 const videoSource =
   'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
@@ -21,7 +22,7 @@ export default function VideoScreen() {
         <StatusBar  hidden/>
         <View style={{flex:0.03}}>
             <TouchableOpacity onPress={() =>{navigate.goBack()}}>
-            <Text style={{color:"white"}}>Back</Text>
+            <AntDesign name="arrowleft" size={24} color="white" />
             </TouchableOpacity>
 
         </View>

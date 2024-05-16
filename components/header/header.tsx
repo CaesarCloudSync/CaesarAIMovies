@@ -1,6 +1,9 @@
+import { useRouter } from "expo-router";
 import { View ,Text} from "react-native";
 import { Image } from "react-native";
+import { TouchableOpacity } from "react-native";
 export default function Header({style}:any){
+    const router = useRouter();
     return(
 
                    
@@ -10,7 +13,9 @@ export default function Header({style}:any){
             
             </View>
             <View style={{flex:0.13,margin:10}}>
-            <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
+            <TouchableOpacity onPress={()=>{router.push("/wishlist")}}>
+                <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
+            </TouchableOpacity>
             </View>
 
         </View>

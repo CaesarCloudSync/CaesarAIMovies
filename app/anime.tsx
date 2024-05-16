@@ -80,12 +80,8 @@ export default function AmariAnime(){
         <View style={{flex:1,backgroundColor:"#141212"}}>
             <StatusBar hidden/>
             <Header/>
-            <View style={{flex:0.04}}>
-               <View style={{alignSelf:"flex-end",marginRight:10}}>
-               <Text style={{color:"white"}}>Wishlist</Text>
-               </View>
-            </View>
-            <View style={{flex:0.13,justifyContent:"center",alignItems:"center",flexDirection:"column",gap:30}}>
+
+            <View style={{flex:0.13,justifyContent:"center",alignItems:"center",flexDirection:"column",gap:30,marginTop:20}}>
   
 
                     <Text style={{color:"white",fontSize:20}}>Amari Anime</Text>
