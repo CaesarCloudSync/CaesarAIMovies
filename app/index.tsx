@@ -29,7 +29,7 @@ export default function AmariMovies(){
         const config = {
             headers: { Authorization: `Bearer ${moviekeys.read_access_token}` }
         };
-        
+        const responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
         const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pagenum}`,config)
         let result = response.data
         //console.log(result)
