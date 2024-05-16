@@ -9,7 +9,9 @@ import { AntDesign } from '@expo/vector-icons';
 import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-export default function AnimeSeriesCard({film}:any){
+import { usePathname } from "expo-router";
+export default function AnimeSeriesCard({film,setRecentManga}:any){
+    const pathname = usePathname();
     const router = useRouter();
 
     const [isonwishlist,setIsOnWishList]= useState(false)
@@ -52,8 +54,16 @@ export default function AnimeSeriesCard({film}:any){
 
     }
     const storeasrecent =async () => {
-        AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"id":film.id,"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language,"mediatype":"tv"}))
-        router.push("/search")
+        if (pathname === "/search"){
+            await AsyncStorage.removeItem(`media:${film.id}`)
+            setRecentManga([])
+
+        }
+        else{
+            AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"id":film.id,"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language,"mediatype":"tv"}))
+            router.push("/search")
+
+        }
     }
     useEffect(()=>{
         checkwishlist()

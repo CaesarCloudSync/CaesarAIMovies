@@ -26,8 +26,7 @@ export default function Search(){
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
     const [recentmanga,setRecentManga]  = useState<any>([]);
-    
-    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv": mediatype)
+    const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv": mediatype=== null ? "tv" : mediatype)
   
 
 
@@ -93,7 +92,7 @@ export default function Search(){
 
 
      useEffect(() =>{
-        if (searchresults.length === 0){
+        if (recentmanga.length === 0){
             if (netInfo.isInternetReachable === true){
                 getrecentmanga()
         }
@@ -161,12 +160,12 @@ export default function Search(){
                                     if (film.original_language === "ja"){
                                         //console.log("hi")
                                         return(
-                                            <AnimeSeriesCard key={index} film={film}/>
+                                            <AnimeSeriesCard key={index} film={film} setRecentManga={setRecentManga}/>
                                         )
                                     }
                                     else{
                                         return(
-                                            <SeriesCard key={index} film={film}/>
+                                            <SeriesCard key={index} film={film} setRecentManga={setRecentManga}/>
                                         )
                                         
                                     }
