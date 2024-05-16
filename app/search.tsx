@@ -11,6 +11,7 @@ import Header from "@/components/header/header";
 import { moviekeys } from "./moviekeys";
 import MovieCard from "@/components/moviecard/moviecard";
 import { useLocalSearchParams } from "expo-router";
+import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
 export default function Search(){
     const netInfo = useNetInfo();
     const [text,setText] = useState("");
@@ -130,9 +131,24 @@ export default function Search(){
             data={searchresults}
             renderItem={({item,index}:any) => {
                 let film = item
-                    return (
-                        <MovieCard key={index} film={film}/>
-                    )
+                    if (mediatype === "anime"){
+                        return(
+                            <AnimeSeriesCard key={index} film={film}/>
+                        )
+                    }
+                    else if (mediatype === "movie"){
+                        return(
+                            <MovieCard key={index} film={film}/>
+                        )
+                    }
+                    else if (mediatype === "tv"){
+                        return(
+                            <MovieCard key={index} film={film}/>
+                        )
+                    }
+                    else{
+                        return(<MovieCard key={index} film={film}/>)
+                    }
             }
         }
 

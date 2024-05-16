@@ -12,6 +12,7 @@ import { FlatList,TextInput} from "react-native";
 import MovieCard from "@/components/moviecard/moviecard";
 import { StatusBar } from "expo-status-bar";
 import NavigationFooter from "./footer";
+import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
 export default function AmariAnime(){
 
     const router = useRouter();
@@ -119,7 +120,7 @@ export default function AmariAnime(){
             renderItem={({item,index}:any) => {
                 let film = item
                     return (
-                        <MovieCard key={index} film={film}/>
+                        <AnimeSeriesCard key={index} film={film}/>
                     )
             }
         }
