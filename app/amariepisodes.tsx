@@ -54,7 +54,7 @@ export default function AmariEpisodes(){
     return(
         <View style={{backgroundColor:"#1e1e1e",flex:1}}>
             <StatusBar hidden/>
-            <View style={{flex:0.03}}>
+            <View style={{flex:0.04}}>
                 <TouchableOpacity onPress={() =>{navigation.goBack()}}>
                 <AntDesign name="arrowleft" size={30} color="white" />
                 </TouchableOpacity>

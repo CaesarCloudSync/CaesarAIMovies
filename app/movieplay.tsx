@@ -15,7 +15,7 @@ const videoSource =
 export default function VideoScreen() {
     const navigate = useNavigation();
     const {movieurl} = useLocalSearchParams();
-    //console.log(movieurl)
+
 
   return (
     <View style={{flex:1,backgroundColor:"black"}}>
