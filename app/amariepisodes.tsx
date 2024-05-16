@@ -39,7 +39,7 @@ export default function AmariEpisodes(){
         }; 
         const response = await axios.get(`https://api.themoviedb.org/3/tv/${seriesid}?language=en-US`,config)
         let result = response.data
-        //console.log(result)
+        ////console.log(result)
         setNumOfEpisodes(result.number_of_episodes)
         let seasons = result.seasons
         seasons = reorderpecials(seasons)

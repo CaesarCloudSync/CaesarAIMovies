@@ -5,7 +5,7 @@ export default function ChapterCover({mangaid,cover_art,chapter,title,chapterid,
     const navtochapters = async () =>{
         router.push({ pathname: "/page", params: {"volumeno":volumeno,"chapterid":chapterid,"mangaid": mangaid,"cover_id":cover_id,"title":title,"type":type,"cover_art":cover_art,"chaptertitle":chaptertitle}});
     }
-    //console.log()
+    ////console.log()
     return(
         <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
             <TouchableOpacity onPress={() =>{navtochapters()}}>

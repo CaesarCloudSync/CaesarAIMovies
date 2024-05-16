@@ -23,8 +23,8 @@ export default function Episode({seriesid,episode,season_number}:any){
 
     }
 
-    //console.log(film.original_language)
-    //console.log(haswatchedcookie,"hi")
+    ////console.log(film.original_language)
+    ////console.log(haswatchedcookie,"hi")
     return(
         <TouchableOpacity  onPress={() =>{getepisode()}}>
         <View style={{flex:1,backgroundColor:"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"center",alignItems:"center"}}>

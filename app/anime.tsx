@@ -35,7 +35,7 @@ export default function AmariAnime(){
         const responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
         const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?language=en-US&page=${pagenum}&with_genres=16&with_keywords=210024|287501&first_air_date.gte=${final_date}`,config)
         let result = response.data
-        //console.log(result)
+        ////console.log(result)
         setUpcomingFilms(result.results)
     }
     useEffect(() =>{
@@ -53,7 +53,7 @@ export default function AmariAnime(){
 
     }
     const navright = () =>{
-        //console.log("hi",pagenum)
+        ////console.log("hi",pagenum)
         setPageNum(pagenum+1)
         router.push({ pathname: "/anime", params: {"page":pagenum+1}});
 
@@ -61,7 +61,7 @@ export default function AmariAnime(){
     }
     const navpick = (index:any) =>{
         if (pagenum !== index){
-            //console.log("ho",index)
+            ////console.log("ho",index)
             setPageNum(index)
             router.push({ pathname: "/anime", params: {"page":index}});
 

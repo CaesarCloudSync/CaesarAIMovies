@@ -14,7 +14,7 @@ export default function Header({style}:any){
             </View>
             <View style={{flex:0.13,margin:10}}>
             <TouchableOpacity onPress={()=>{router.push("/wishlist")}}>
-                <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
+                <Image style={{width:44,height:39}} source={require("./CaesarAIMoviesLogo.png")} />
             </TouchableOpacity>
             </View>
 

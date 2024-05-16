@@ -14,7 +14,7 @@ export default function AmariAnimeSeasons(){
     const router = useRouter();
 
     const {series,film_name,poster_path}:any  = useLocalSearchParams();
-    console.log(film_name)
+    //console.log(film_name)
 
     const [seasons,setSeasons] = useState([])
     const [description,setDescription] = useState("");
@@ -38,21 +38,21 @@ export default function AmariAnimeSeasons(){
 
     }
     const getfilmdetails = async () =>{
-        //console.log(film)
+        ////console.log(film)
         const config = {
             headers: { Authorization: `Bearer ${moviekeys.read_access_token}` }
         };
         const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/${film_name}?page=1`,config)
         let result = response.data
         let seasons = result.results
-        console.log(seasons)
+        ////console.log(seasons)
         seasons.sort(function(a:any,b:any) {
          
             let bval = parseInt(b.releaseDate.replace(/^\D+/g, '').trim())
             let aval = parseInt(a.releaseDate.replace(/^\D+/g, '').trim())
             return aval- bval 
         })
-       // console.log(seasons)
+       // //console.log(seasons)
         //`https://image.tmdb.org/t/p/original/${season.poster_path}`
         setSeasons(seasons)
         //setNumOfEpisodes(result.number_of_episodes)
@@ -63,7 +63,7 @@ export default function AmariAnimeSeasons(){
         
     }
     const navepisodes = async (id:any,season_name:any) =>{
-        console.log(season_name,"hey")
+        //console.log(season_name,"hey")
         router.push({ pathname: "/amarianimeepisodes", params: {"animeid":id,"film_name":film_name,"poster_path":poster_path,"season_name":season_name}});
      
 

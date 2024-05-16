@@ -32,7 +32,7 @@ export default function AmariMovies(){
         const responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
         const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=${pagenum}`,config)
         let result = response.data
-        //console.log(result)
+        ////console.log(result)
         setUpcomingFilms(result.results)
     }
     useEffect(() =>{
@@ -50,7 +50,7 @@ export default function AmariMovies(){
 
     }
     const navright = () =>{
-        //console.log("hi",pagenum)
+        ////console.log("hi",pagenum)
         setPageNum(pagenum+1)
         router.push({ pathname: "/", params: {"page":pagenum+1}});
 
@@ -58,7 +58,7 @@ export default function AmariMovies(){
     }
     const navpick = (index:any) =>{
         if (pagenum !== index){
-            //console.log("ho",index)
+            ////console.log("ho",index)
             setPageNum(index)
             router.push({ pathname: "/", params: {"page":index}});
 

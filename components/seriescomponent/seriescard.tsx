@@ -14,7 +14,7 @@ export default function SeriesCard({film,setRecentManga}:any){
     const router = useRouter();
 
     const [isonwishlist,setIsOnWishList]= useState(false)
-    //console.log("hi")
+    ////console.log("hi")
 
     const getvideo = async () =>{
         const config = {

@@ -17,15 +17,15 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         //bake_cookie(cookie_key, 'true');
         //delete_cookie(cookie_key)"
         //setHasWatchedCookie("true")
-        //console.log(video.url)
+        ////console.log(video.url)
   
         router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
 
 
     }
 
-    //console.log(film.original_language)
-    //console.log(haswatchedcookie,"hi")
+    ////console.log(film.original_language)
+    ////console.log(haswatchedcookie,"hi")
     return(
         <TouchableOpacity onPress={() =>{getepisode()}} style={{display:"flex",backgroundColor:"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"center",alignItems:"center",cursor:"pointer"}}>
        

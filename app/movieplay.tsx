@@ -33,14 +33,14 @@ export default function VideoScreen() {
   mediaPlaybackRequiresUserAction
   source={{ uri: `${movieurl}`,marginTop: Constants.statusBarHeight}} 
   onShouldStartLoadWithRequest={request => {
-    console.log(request.url,"hi")
+    //console.log(request.url,"hi")
     if (request.url.includes('https')) {
         return false;
     } else return true;
    }}
    onNavigationStateChange={
     request => {
-        //console.log(request.url,",hil")
+        ////console.log(request.url,",hil")
         if (request.url.includes('https')) {
             return false;
         } else return true;

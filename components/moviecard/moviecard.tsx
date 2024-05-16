@@ -38,7 +38,7 @@ export default function MovieCard({film}:any){
     const addtowishlist = async () =>{
         const response = await axios.post(`https://amarimovieswishlist-qqbn26mgpa-nw.a.run.app/addwishlist?themoviedbid=${film.id}`,{"movie":film.title,"themoviedbid":film.id,"type":"movie"})
         let result = response.data
-        console.log(result)
+        //console.log(result)
         if ("message" in result){
                 setIsOnWishList(true)
         }
@@ -54,7 +54,7 @@ export default function MovieCard({film}:any){
     useEffect(()=>{
         checkwishlist()
     },[])
-    //console.log(film)
+    ////console.log(film)
     return(
         <View>
         <View style={{display:"flex",flexDirection:"column"}}>

@@ -26,7 +26,7 @@ export default function ChapterPage(){
       };
 
     const getchapterpages =async () => {
-        //console.log(mangaid)
+        ////console.log(mangaid)
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes(`downloaded_volume_chapters:${mangaid}-${volumeno}`))}))
         const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
@@ -41,13 +41,13 @@ export default function ChapterPage(){
             
           }}})
         let result = responsefeed.data.data
-        //console.log(result[1])
+        ////console.log(result[1])
         result= result.filter((manga:any)=>{return(manga.attributes.volume === volumeno)})
-        //console.log(result)
+        ////console.log(result)
         if (result.length === 0){
             AsyncStorage.setItem(`un-manga-volume:${mangaid}-${volumeno}`,JSON.stringify({"mangaid":mangaid,"volumeno":volumeno}))
         }
-        //console.log(result)
+        ////console.log(result)
         setChapterFeed(result)
     }
     }
@@ -60,7 +60,7 @@ export default function ChapterPage(){
         }
     }
     const download_volume =async () => {
-       // console.log(chapterfeed)
+       // //console.log(chapterfeed)
         const promises = chapterfeed.map(async (chapter:any) =>{
             const response = await axios.get(`https://api.mangadex.org/at-home/server/${chapter.id}`)
             let result = response.data
@@ -78,10 +78,10 @@ export default function ChapterPage(){
         const pagepromises = pages.map(async (chapter:any,chapterindex:any) =>{
            const chapterpromises =  chapter.map(async (page:any,pageindex:any) =>{
 
-                console.log(chapterfeed[chapterindex].attributes.title)
+                //console.log(chapterfeed[chapterindex].attributes.title)
                if (chapterfeed[chapterindex].attributes.title !== null){
                 let title_filename = `${mangaid}_${volumeno}_${chapterfeed[chapterindex].attributes.title.replaceAll(" ","_")}_${pageindex}`
-                //console.log(title_filename)
+                ////console.log(title_filename)
                 const downloadResumable = FileSystem.createDownloadResumable(
                     page,
                     FileSystem.documentDirectory + title_filename + ".jpg",
@@ -90,9 +90,9 @@ export default function ChapterPage(){
                   );
                   try {
                     const { uri }:any = await downloadResumable.downloadAsync();
-                    //console.log('Finished downloading to ', uri);
+                    ////console.log('Finished downloading to ', uri);
                     doneCount++; 
-                    console.log(doneCount)
+                    //console.log(doneCount)
                     setCompletedPages(doneCount)
                   } catch (e) {
                     console.error(e);
@@ -119,7 +119,7 @@ export default function ChapterPage(){
         
         router.push("/downloads")
     }
-    //console.log(progress)
+    ////console.log(progress)
     useEffect(()=>{
         getchapterpages()
     },[])

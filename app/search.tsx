@@ -59,7 +59,7 @@ export default function Search(){
     const getrecentmanga =async () => {
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("media:"))}))
-         //console.log(items)
+         ////console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
         setRecentManga(mangaitems)
         
@@ -74,7 +74,7 @@ export default function Search(){
     }
     const seacrhnavpick = (index:any) =>{
         if (pagenum !== index){
-            //console.log("ho",index)
+            ////console.log("ho",index)
             setSearchPageNum(index)
         }
 
@@ -138,7 +138,7 @@ export default function Search(){
                         value={moviesearchquery}
                     />
             <TouchableOpacity onPress={() =>{router.push("/wishlist")}} style={{flex:0.13,marginLeft:15}}>
-                <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
+                <Image style={{width:44,height:39}} source={require("./CaesarAIMoviesLogo.png")} />
             </TouchableOpacity>
                 
                 
@@ -158,7 +158,7 @@ export default function Search(){
                         
                                 if (film.mediatype === "tv"||mediatypename === "tv" ){
                                     if (film.original_language === "ja"){
-                                        //console.log("hi")
+                                        ////console.log("hi")
                                         return(
                                             <AnimeSeriesCard key={index} film={film} setRecentManga={setRecentManga}/>
                                         )
@@ -200,7 +200,7 @@ export default function Search(){
             data={searchresults}
             renderItem={({item,index}:any) => {
                 let film = item
-                //console.log(film)
+                ////console.log(film)
                     if (mediatypename === "tv" ){
                         if (film.original_language === "ja"){
                             return(
@@ -266,7 +266,7 @@ else if (netInfo.isInternetReachable === null){
         value={text}
     />
     <View style={{flex:0.13,marginLeft:15}}>
-        <Image style={{width:44,height:39}} source={require("./CaesarAIMangaLogo.png")} />
+        <Image style={{width:44,height:39}} source={require("./CaesarAIMoviesLogo.png")} />
         </View>
     </View>
 

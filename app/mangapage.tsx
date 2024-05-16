@@ -14,8 +14,8 @@ export default function MangaPage(){
     const navigation = useNavigation();
     const params = useLocalSearchParams();
     const { mangaid,cover_id,title,type,cover_art}:any = params;
-    //console.log("hem",type)
-    //console.log(mangaid,title,cover_art)
+    ////console.log("hem",type)
+    ////console.log(mangaid,title,cover_art)
     const getmangapage = async () => {
         const response = await axios.get(`https://api.mangadex.org/manga/${mangaid}`)
         let result = response.data.data.attributes
@@ -43,8 +43,8 @@ export default function MangaPage(){
     useEffect(()=>{
         getmangapage()
     },[])
-    //console.log(cover_art)
-    //console.log("hi",`https://uploads.mangadex.org/covers/${mangaid}/${volumefeed[0].attributes.fileName}`)
+    ////console.log(cover_art)
+    ////console.log("hi",`https://uploads.mangadex.org/covers/${mangaid}/${volumefeed[0].attributes.fileName}`)
     return(
         <View style={{flex:1,backgroundColor:"#141212"}}>
             <StatusBar  hidden/>

@@ -25,7 +25,7 @@ export default function AmariAnimeEpisodes(){
     const [video,setVideo] = useState("");
     const videoRef = useRef(null);
     const [status, setStatus] = useState({});
-    console.log(season_name,"ho")
+    //console.log(season_name,"ho")
 
 
     const getfilmdetails = async () =>{
@@ -79,7 +79,7 @@ export default function AmariAnimeEpisodes(){
                                                 data={episodes}
                                                 renderItem={({item,index}:any) =>{
                                                     let episode = item
-                                                    console.log(episode)
+                                                    //console.log(episode)
                                                     return(
                                                         <Episode animeid={animeid} season_name={season_name} season_image={season.image} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episode.id} number={episode.number} setVideo={setVideo}/>
                                                     )

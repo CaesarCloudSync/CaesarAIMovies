@@ -35,10 +35,10 @@ export default function VideoEpisode(){
     const [status, setStatus] = useState({});
     const [isPreloading,setIsPreloading] = useState(false)
     const navnextep =async () => {
-      //console.log(episodeid)
-      //console.log(parseInt(episodeid.replace(/^\D+/g, '').trim()))
+      ////console.log(episodeid)
+      ////console.log(parseInt(episodeid.replace(/^\D+/g, '').trim()))
       let current_epnum:any = parseInt(number) 
-      //console.log(current_epnum)
+      ////console.log(current_epnum)
       if (current_epnum <parseInt(numeps) ){
         let ep_prefix = episodeid.substring(0, episodeid.length - 1);
         let next_number = (current_epnum + 1).toString()
@@ -61,7 +61,7 @@ export default function VideoEpisode(){
       let prev = current_epnum - 1
       let prev_number:any = (current_epnum - 1).toString()
       let prev_episodeid:any = ep_prefix + prev_number
-      //console.log(next_episodeid) 
+      ////console.log(next_episodeid) 
       const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${prev_episodeid}?server=vidstreaming`);
       let result = response.data
       let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
@@ -78,7 +78,7 @@ export default function VideoEpisode(){
   }
   const setcurrentreading =async () => {
     const current_anime = await AsyncStorage.getItem("current_anime")
-    console.log(current_anime)
+    console.log(season_name)
     AsyncStorage.setItem(`current_watching_anime:${animeid}`,JSON.stringify({"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name})) // -${chapterid}
     router.push("/library")
 }
@@ -100,8 +100,8 @@ const changeorientation =async () => {
 }
 
 
-    //console.log(animelink)
-    //console.log(haswatchedcookie,"hi")
+    ////console.log(animelink)
+    ////console.log(haswatchedcookie,"hi")
     return(
     <View style={{backgroundColor:"black",flex:1,justifyContent:"center",alignItems:"center"}}>
       <StatusBar hidden/>
@@ -134,7 +134,7 @@ const changeorientation =async () => {
             uri: `${animelink}`,
           }}
           onPlaybackStatusUpdate={(status:any) =>{
-            console.log(status)
+            //console.log(status)
             if(status.isBuffering === true){
               setIsPreloading(true)
             }
@@ -148,7 +148,7 @@ const changeorientation =async () => {
           resizeMode={ResizeMode.CONTAIN}
           isLooping
           onError={() =>{
-        //console.log("hi")
+        ////console.log("hi")
            router.push({ pathname: "/videoepisode", params: {"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
       
           }}
@@ -162,7 +162,7 @@ const changeorientation =async () => {
       <MaterialIcons name="skip-previous" size={24} color="white" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>{navepisodes()}} onLongPress={()=>{setcurrentreading()}}>
-            <Image style={{width:40,height:30}} alt="hello" source={require("./CaesarAIMangaLogo.png")}></Image>
+            <Image style={{width:40,height:30}} alt="hello" source={require("./CaesarAIMoviesLogo.png")}></Image>
             </TouchableOpacity>
         <TouchableOpacity onPress={() =>{navnextep()}}>
         <Entypo name="controller-next" size={24} color="white" />

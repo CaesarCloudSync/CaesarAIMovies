@@ -2,8 +2,7 @@ import { View } from "react-native";
 import NavigationFooter from "./footer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
-import MangaCover from "@/components/homecomponents/MangaCover";
-import VolumeCover from "@/components/mangapagecomponents/volumecover";
+
 import { FlatList,TouchableOpacity,Image,Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import Header from "@/components/header/header";
@@ -23,7 +22,7 @@ export default function Library(){
      const get_downloaded_current_reading =async () => {
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("current_watching_anime:"))}))
-         //console.log(items)
+         ////console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
         const mangaitemspromises = mangaitems.map(async (item:any) =>{
 
@@ -36,13 +35,13 @@ export default function Library(){
             }
          })
          const downloaded_current_reading = (await Promise.all(mangaitemspromises)).filter((item) =>{return(item !== null)})
-         //console.log(downloaded_current_reading)
+         ////console.log(downloaded_current_reading)
          setRecentManga(downloaded_current_reading)
      }
      useEffect(()=>{
         
         if (recentmanga.length === 0){
-            //console.log(netInfo.isInternetReachable)
+            ////console.log(netInfo.isInternetReachable)
             if (netInfo.isInternetReachable === true){
                 getcurrentreading()
             }
@@ -56,7 +55,7 @@ export default function Library(){
         await AsyncStorage.removeItem(`current_watching_anime:${animeid}`)
         setRecentManga([])
     }
-    //console.log("hi")
+    ////console.log("hi")
     return(
         <View style={{flex:1,backgroundColor:"#141212"}}>
             <Header/>
@@ -78,7 +77,7 @@ export default function Library(){
                     data={recentmanga}
                     renderItem={({item,index}:any) => {
                         let film = item
-                        console.log(film)
+                        //console.log(film)
                       
                             return (
                                 <View>

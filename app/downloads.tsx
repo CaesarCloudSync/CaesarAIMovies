@@ -27,22 +27,22 @@ export default function Downloads(){
           );
           try {
             const { uri }:any = await downloadResumable.downloadAsync();
-            console.log('Finished downloading to ', uri);
+            //console.log('Finished downloading to ', uri);
           } catch (e) {
             console.error(e);
           }
           let dir:any = FileSystem.documentDirectory
           let files = await FileSystem.readDirectoryAsync(dir);
-          //console.log(files)
+          ////console.log(files)
           
         
     }
     const getdownloadedmanga =async () => {
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("downloaded_volume:"))}))
-         //console.log(items)
+         ////console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
-         //console.log(mangaitems)
+         ////console.log(mangaitems)
         setDownloadedManga(mangaitems)
         
      }
