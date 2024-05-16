@@ -100,7 +100,7 @@ const changeorientation =async () => {
 }
 
 
-    //console.log(animeid)
+    //console.log(animelink)
     //console.log(haswatchedcookie,"hi")
     return(
     <View style={{backgroundColor:"black",flex:1,justifyContent:"center",alignItems:"center"}}>
@@ -133,12 +133,25 @@ const changeorientation =async () => {
           source={{
             uri: `${animelink}`,
           }}
-          onPlaybackStatusUpdate={(e) =>{console.log(e)}}
+          onPlaybackStatusUpdate={(status:any) =>{
+            console.log(status)
+            if(status.isBuffering === true){
+              setIsPreloading(true)
+            }
+            else{
+              setIsPreloading(false)
+            }
+          }}  
           onLoadStart={() => setIsPreloading(true)}
           useNativeControls
           onReadyForDisplay={() => setIsPreloading(false)}
           resizeMode={ResizeMode.CONTAIN}
           isLooping
+          onError={() =>{
+        //console.log("hi")
+           router.push({ pathname: "/videoepisode", params: {"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
+      
+          }}
         >
           
         </Video>
