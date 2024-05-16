@@ -17,12 +17,13 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import { Image } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function VideoEpisode(){
     const navigation = useNavigation();
     const router = useRouter();
     const [showBack] = useState(true);
-    const {animelink,episodeid,numeps,number,animeid,film_name,poster_path}:any = useLocalSearchParams();
+    const {animelink,episodeid,numeps,number,animeid,film_name,poster_path,season_image,season_name}:any = useLocalSearchParams();
     const [inFullscreen, setInFullsreen] = useState(false)
     const [inFullscreen2, setInFullsreen2] = useState(false)
     const [isMute, setIsMute] = useState(false)
@@ -32,24 +33,25 @@ export default function VideoEpisode(){
     const navnextep =async () => {
       //console.log(episodeid)
       //console.log(parseInt(episodeid.replace(/^\D+/g, '').trim()))
-      let current_epnum:any = parseInt(episodeid.replace(/^\D+/g, '').trim()) 
+      let current_epnum:any = parseInt(number) 
+      console.log(current_epnum)
       if (current_epnum <parseInt(numeps) ){
-        let ep_prefix = episodeid.replace(/[0-9]/g, '')
+        let ep_prefix = episodeid.substring(0, episodeid.length - 1);
         let next_number = (current_epnum + 1).toString()
         let next_episodeid = ep_prefix + next_number
-      //console.log(next_episodeid)
       const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${next_episodeid}?server=vidstreaming`);
       let result = response.data
+
       let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
       
-      router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":next_episodeid,"numeps":numeps,"number":next_number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path}});
+      router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":next_episodeid,"numeps":numeps,"number":next_number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
       
       
     }
 
   }
   const navprevep =async () => {
-    let current_epnum:any = parseInt(episodeid.replace(/^\D+/g, '').trim()) 
+    let current_epnum:any = parseInt(number) 
     if (current_epnum > 0){
       let ep_prefix = episodeid.replace(/[0-9]/g, '')
       let prev = current_epnum - 1
@@ -60,7 +62,7 @@ export default function VideoEpisode(){
       let result = response.data
       let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
   
-      router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":prev_episodeid,"numeps":numeps,"number":prev_number}});
+      router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":prev_episodeid,"numeps":numeps,"number":prev_number,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
       
 
     }
@@ -70,6 +72,12 @@ export default function VideoEpisode(){
     router.push({ pathname: "/amarianimeepisodes", params: {"animeid":animeid,"film_name":film_name,"poster_path":poster_path}});
     
   }
+  const setcurrentreading =async () => {
+    const current_anime = await AsyncStorage.getItem("current_anime")
+    console.log(current_anime)
+    AsyncStorage.setItem(`current_watching_anime:${animeid}`,JSON.stringify({"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name})) // -${chapterid}
+    router.push("/library")
+}
 
 
     //console.log(animeid)
@@ -82,6 +90,7 @@ export default function VideoEpisode(){
           <AntDesign name="arrowleft" size={30} color="white" />
           </TouchableOpacity>}
         <View style={{top:inFullscreen2 ? 0 : 300}}>
+        <View style={{justifyContent:"center",alignItems:"center"}}><Text style={{color:"white"}}>Episode: {number}</Text></View>
         <VideoPlayer
         
         videoProps={{
@@ -128,7 +137,9 @@ export default function VideoEpisode(){
       <TouchableOpacity onPress={() =>{navprevep()}}>
       <MaterialIcons name="skip-previous" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={{color:"white"}}>{number}</Text>
+        <TouchableOpacity onLongPress={()=>{setcurrentreading()}}>
+            <Image style={{width:40,height:30}} alt="hello" source={require("./CaesarAIMangaLogo.png")}></Image>
+            </TouchableOpacity>
         <TouchableOpacity onPress={() =>{navnextep()}}>
         <Entypo name="controller-next" size={24} color="white" />
         </TouchableOpacity>

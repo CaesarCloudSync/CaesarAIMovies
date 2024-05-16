@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { View,Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
-export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path}:any){
+export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path,season_image,season_name}:any){
     const router = useRouter();
     const [cookie_key,setCookieKey] = useState(`${episodeid}`)
 
@@ -17,9 +17,9 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         //bake_cookie(cookie_key, 'true');
         //delete_cookie(cookie_key)"
         //setHasWatchedCookie("true")
-        console.log(video.url)
+        //console.log(video.url)
   
-        router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path}});
+        router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
 
 
     }

@@ -62,8 +62,9 @@ export default function AmariAnimeSeasons(){
         setDescription(result.overview)
         
     }
-    const navepisodes = async (id:any,url:any) =>{
-        router.push({ pathname: "/amarianimeepisodes", params: {"animeid":id,"film_name":film_name,"poster_path":poster_path}});
+    const navepisodes = async (id:any,season_name:any) =>{
+        console.log(season_name,"hey")
+        router.push({ pathname: "/amarianimeepisodes", params: {"animeid":id,"film_name":film_name,"poster_path":poster_path,"season_name":season_name}});
      
 
 
@@ -125,7 +126,7 @@ export default function AmariAnimeSeasons(){
                 let season = item
                 return(
                     <View style={{flexDirection:"column"}}>
-                    <TouchableOpacity onPress={() =>{navepisodes(season.id,season.image)}}>
+                    <TouchableOpacity onPress={() =>{navepisodes(season.id,season.title)}}>
                     <Image src={season.image} style={{width:150,height:250,cursor:"pointer",borderRadius:5}}></Image>
                     <Text style={{marginTop:4,color:"white",width:150}}>{season.title}</Text>
                     <Text style={{width:100,color:"white"}}>Release Date: {season.releaseDate}</Text>

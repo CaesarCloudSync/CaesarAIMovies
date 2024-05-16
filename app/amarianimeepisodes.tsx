@@ -15,15 +15,17 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function AmariAnimeEpisodes(){
     const navigate = useNavigation();
     const router = useRouter();
-    const {animeid,film_name,poster_path} = useLocalSearchParams();
+    const {animeid,film_name,poster_path,season_name} = useLocalSearchParams();
     const [season,setSeason] = useState<any>({});
     const [episodes,setEpisodes] = useState<any>([])
     const [video,setVideo] = useState("");
     const videoRef = useRef(null);
     const [status, setStatus] = useState({});
+    console.log(season_name,"ho")
 
 
     const getfilmdetails = async () =>{
@@ -31,8 +33,9 @@ export default function AmariAnimeEpisodes(){
         let result = response.data
 
         setEpisodes(result.episodes)
-
+        
         setSeason(result)
+        //AsyncStorage.setItem(`current_anime`,JSON.stringify({"animeid":animeid,"film_name":film_name,"poster_path":poster_path})) 
 
    
 
@@ -76,8 +79,9 @@ export default function AmariAnimeEpisodes(){
                                                 data={episodes}
                                                 renderItem={({item,index}:any) =>{
                                                     let episode = item
+                                                    console.log(episode)
                                                     return(
-                                                        <Episode animeid={animeid} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episode.id} number={episode.number} setVideo={setVideo}/>
+                                                        <Episode animeid={animeid} season_name={season_name} season_image={season.image} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episode.id} number={episode.number} setVideo={setVideo}/>
                                                     )
                                                 }}
                                             >
