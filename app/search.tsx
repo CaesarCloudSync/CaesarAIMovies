@@ -25,6 +25,7 @@ export default function Search(){
     const [moviesearchquery,setMovieSearchQuery] = useState("");
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
+    console.log(mediatype)
     const [recentmanga,setRecentManga]  = useState<any>([]);
     
     const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv": mediatype)
@@ -139,8 +140,9 @@ export default function Search(){
                         renderItem={({item,index}:any) => {
                             let film = item
                         
-                                if (mediatype === "tv"){
+                                if (film.mediatype === "tv"||mediatype === "tv" ){
                                     if (film.original_language === "ja"){
+                                        //console.log("hi")
                                         return(
                                             <AnimeSeriesCard key={index} film={film}/>
                                         )
@@ -153,7 +155,8 @@ export default function Search(){
                                     }
             
                                 }
-                                else if (mediatype === "movie"){
+                                else if (mediatype === "movie"|| film.mediatype === "movie"){
+                                   
                                     return(
                                         <MovieCard key={index} film={film}/>
                                     )

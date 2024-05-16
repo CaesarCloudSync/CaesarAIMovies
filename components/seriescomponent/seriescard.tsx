@@ -5,11 +5,12 @@ import { moviekeys } from "@/app/moviekeys";
 
 import { useNavigation, useRouter, useLocalSearchParams, router } from "expo-router";
 import { AntDesign } from '@expo/vector-icons';
-
+import { usePathname } from "expo-router";
 import { useEffect, useState } from "react";
 import { TouchableOpacity,Text,View, Image} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function SeriesCard({film}:any){
+    const pathname = usePathname();
     const router = useRouter();
 
     const [isonwishlist,setIsOnWishList]= useState(false)
@@ -52,14 +53,18 @@ export default function SeriesCard({film}:any){
         }
 
     }
-
+    const storeasrecent =async () => {
+        console.log(pathname)
+        AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"id":film.id,"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language,"mediatype":"tv"}))
+        router.push("/search")
+    }
     useEffect(()=>{
         checkwishlist()
     },[isonwishlist])
     return(
         <View>
         <View style={{display:"flex",flexDirection:"column"}}>
-            <TouchableOpacity onPress={() =>{getvideo()}} >
+            <TouchableOpacity onLongPress={() =>{storeasrecent()}} onPress={() =>{getvideo()}} >
             <Image src={`https://image.tmdb.org/t/p/original/${film.poster_path}`} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
             </TouchableOpacity>
             <View style={{width:175,flex:1,gap:2}}>

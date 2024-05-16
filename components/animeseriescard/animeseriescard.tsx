@@ -52,7 +52,7 @@ export default function AnimeSeriesCard({film}:any){
 
     }
     const storeasrecent =async () => {
-        AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language}))
+        AsyncStorage.setItem(`media:${film.id}`,JSON.stringify({"series":film.name.replaceAll(" ","-",),"id":film.id,"name":film.name,"poster_path":film.poster_path,"vote_count":film.vote_count,"release_date":film.release_date,"vote_average":film.vote_average,"original_language":film.original_language,"mediatype":"tv"}))
         router.push("/search")
     }
     useEffect(()=>{
