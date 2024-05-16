@@ -20,6 +20,9 @@ export default function NavigationFooter({currentpage,mediatype,style}:any){
             else if (mediatype === "movie"){
                 router.push("/")
             }
+            else{
+                router.push("/")
+            }
         }
         else if (route === "search"){
             
