@@ -102,7 +102,7 @@ export default function Page(){
         <StatusBar  hidden/>
         <View style={{alignSelf:"flex-start"}} >
             <TouchableOpacity style={{width:100}}  onPress={() =>{navchapterpage()}}>
-            <AntDesign name="arrowleft" size={24} color="white" />
+            <AntDesign name="arrowleft" size={30} color="white" />
             </TouchableOpacity>
         </View>
         <View style={{flex:0.1}}>

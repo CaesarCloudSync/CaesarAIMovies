@@ -53,7 +53,7 @@ export default function AmariAnimeEpisodes(){
         <StatusBar hidden/>
         
         <TouchableOpacity style={{alignSelf:"flex-start"}} onPress={() =>{navseasons()}}>
-            <AntDesign name="arrowleft" size={24} color="white" />
+            <AntDesign name="arrowleft" size={30} color="white" />
             </TouchableOpacity>
    
             <View style={{flex:1,justifyContent:"center",alignItems:"center",gap:20,top:30}}>

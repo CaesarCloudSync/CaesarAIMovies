@@ -75,7 +75,7 @@ export default function AmariAnimeSeasons(){
     return(
         <View style={{backgroundColor:"#1e1e1e",flex:1}}>
             <TouchableOpacity onPress={() =>{navigate.goBack()}}>
-            <AntDesign name="arrowleft" size={24} color="white" />
+            <AntDesign name="arrowleft" size={30} color="white" />
             </TouchableOpacity>
             <StatusBar hidden/>
             <View style={{position:"relative",top:50,flex:1}}>

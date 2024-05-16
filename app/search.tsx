@@ -25,7 +25,6 @@ export default function Search(){
     const [moviesearchquery,setMovieSearchQuery] = useState("");
     const [pagenum,setPageNum] = useState(1)
     const {mediatype} = useLocalSearchParams();
-    console.log(mediatype)
     const [recentmanga,setRecentManga]  = useState<any>([]);
     
     const [mediatypename,setMediaTypeName] = useState(!mediatype ? "tv": mediatype)
@@ -82,6 +81,14 @@ export default function Search(){
 
 
     }
+    const changemediatype = () =>{
+        if (mediatypename === "movie"){
+            setMediaTypeName("tv")
+        }
+        else{
+            setMediaTypeName("movie")
+        }
+    }
     
 
 
@@ -98,10 +105,20 @@ export default function Search(){
         <View style={{flex:1,backgroundColor:"#141212"}}>
                 <StatusBar  hidden/>
                 <View style={{justifyContent:"center",alignItems:"center",marginTop:10,flexDirection:"row"}}>
-                
+                <TouchableOpacity onPress={() =>{changemediatype()}} style={{gap:3,marginRight:10,width:25}}>
+                    <View style={{width:25,height:10,backgroundColor:mediatypename === "movie" ? "blue" :"white"}}>
+
+                    </View>
+                    <View style={{width:25,height:10,backgroundColor:mediatypename === "movie" ? "white" :"blue"}}>
+
+                    </View>
+
+           
+                </TouchableOpacity>
                 <View style={{height:30,borderTopLeftRadius:5,borderBottomLeftRadius:5,backgroundColor:"white",justifyContent:"center",padding:3}}>
                     <AntDesign name="search1" size={20} color="black" />
                 </View>
+
         
                 <TextInput
                         onSubmitEditing={() =>{getsearchresults()}}
@@ -110,7 +127,7 @@ export default function Search(){
                         
                         style={ {
                             height: 30,
-                            width:"70%",
+                            width:"62%",
                         
                             
                             borderBottomRightRadius:5,borderTopRightRadius:5,
@@ -140,7 +157,7 @@ export default function Search(){
                         renderItem={({item,index}:any) => {
                             let film = item
                         
-                                if (film.mediatype === "tv"||mediatype === "tv" ){
+                                if (film.mediatype === "tv"||mediatypename === "tv" ){
                                     if (film.original_language === "ja"){
                                         //console.log("hi")
                                         return(
@@ -155,7 +172,7 @@ export default function Search(){
                                     }
             
                                 }
-                                else if (mediatype === "movie"|| film.mediatype === "movie"){
+                                else if (mediatypename === "movie"|| film.mediatype === "movie"){
                                    
                                     return(
                                         <MovieCard key={index} film={film}/>
@@ -185,7 +202,7 @@ export default function Search(){
             renderItem={({item,index}:any) => {
                 let film = item
                 //console.log(film)
-                    if (mediatype === "tv"){
+                    if (mediatypename === "tv" ){
                         if (film.original_language === "ja"){
                             return(
                                 <AnimeSeriesCard key={index} film={film}/>
@@ -199,7 +216,7 @@ export default function Search(){
                         }
 
                     }
-                    else if (mediatype === "movie"){
+                    else if (mediatypename === "movie"){
                         return(
                             <MovieCard key={index} film={film}/>
                         )
@@ -212,7 +229,7 @@ export default function Search(){
         }
 
             />}
-        <NavigationFooter style={{flex:0.1}} currentpage={"search"} mediatype={mediatype}/>
+        <NavigationFooter style={{flex:0.1}} currentpage={"search"} mediatype={mediatypename}/>
         </View>
     )
 }
@@ -222,7 +239,7 @@ else if (netInfo.isInternetReachable === null){
         <StatusBar  hidden/>
 
         {searchresults.length !== 0 &&
-        <TouchableOpacity onPress={() =>{setSearchResults([])}} style={{alignSelf:"flex-end"}}>
+        <TouchableOpacity  onPress={() =>{setSearchResults([])}} style={{alignSelf:"flex-end"}}>
         <AntDesign name="arrowright" size={24} color="white" />
         </TouchableOpacity>}
 

@@ -79,7 +79,7 @@ export default function VideoEpisode(){
       <StatusBar hidden/>
         {!inFullscreen2&&
           <TouchableOpacity style={{position:"absolute",top:10,zIndex:99,alignSelf:"flex-start"}} onPress={() =>{navepisodes()}}>
-          <AntDesign name="arrowleft" size={24} color="white" />
+          <AntDesign name="arrowleft" size={30} color="white" />
           </TouchableOpacity>}
         <View style={{top:inFullscreen2 ? 0 : 300}}>
         <VideoPlayer

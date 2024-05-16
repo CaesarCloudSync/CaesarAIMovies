@@ -22,7 +22,7 @@ export default function VideoScreen() {
         <StatusBar  hidden/>
         <View style={{flex:0.03}}>
             <TouchableOpacity onPress={() =>{navigate.goBack()}}>
-            <AntDesign name="arrowleft" size={24} color="white" />
+            <AntDesign name="arrowleft" size={30} color="white" />
             </TouchableOpacity>
 
         </View>

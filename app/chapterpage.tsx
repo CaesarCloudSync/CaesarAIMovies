@@ -128,7 +128,7 @@ export default function ChapterPage(){
             <View style={{flex:0.04}}>
             <StatusBar  hidden/>
             <TouchableOpacity style={{flex:1}} onPress={() =>{navmangapage()}}>
-            <AntDesign name="arrowleft" size={24} color="white" />
+            <AntDesign name="arrowleft" size={30} color="white" />
             </TouchableOpacity>
             </View>
             <View style={{flex:0.02}}>

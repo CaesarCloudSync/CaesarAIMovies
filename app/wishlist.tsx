@@ -34,7 +34,7 @@ export default function Wishlist(){
         <View style={{backgroundColor:"#141212",flex:1,justifyContent:"center",alignItems:"center"}}>
             <StatusBar hidden/>
            <TouchableOpacity onPress={() =>{navigation.goBack();}} style={{alignSelf:"flex-start"}}>
-                <AntDesign name="arrowleft" size={24} color="white" />
+                <AntDesign name="arrowleft" size={30} color="white" />
            </TouchableOpacity>
             
             <View style={{flex:0.05}}>

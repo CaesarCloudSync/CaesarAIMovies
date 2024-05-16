@@ -50,7 +50,7 @@ export default function MangaPage(){
             <StatusBar  hidden/>
             <View style={{height:20}}>
             <TouchableOpacity style={{flex:1}} onPress={() =>{navsearch()}}>
-            <AntDesign name="arrowleft" size={24} color="white" />
+            <AntDesign name="arrowleft" size={30} color="white" />
             </TouchableOpacity>
             </View>
             {cover_art.includes(".jpg") ?
