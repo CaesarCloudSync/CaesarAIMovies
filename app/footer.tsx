@@ -11,7 +11,7 @@ export default function NavigationFooter({currentpage,mediatype,style}:any){
     const router = useRouter();
     const navnextpage =async (route:string) => {
         if (route === "home"){
-            if(mediatype === "anime"){
+            if(mediatype === "tv"){
                 router.push("/anime")
             }
             else if (mediatype === "tv"){
