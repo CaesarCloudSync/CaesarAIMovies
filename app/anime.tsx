@@ -32,7 +32,7 @@ export default function AmariAnime(){
         };
         
         let final_date = "2015-03-10"
-        const responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
+        // responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
         const response = await axios.get(`https://api.themoviedb.org/3/discover/tv?language=en-US&page=${pagenum}&with_genres=16&with_keywords=210024|287501&first_air_date.gte=${final_date}`,config)
         let result = response.data
         ////console.log(result)
