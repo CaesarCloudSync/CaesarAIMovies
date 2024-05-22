@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
 import * as FileSystem from 'expo-file-system';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path,season_image,season_name}:any){
     const router = useRouter();
     const [cookie_key,setCookieKey] = useState(`${episodeid}`)
@@ -56,12 +57,11 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         console.log(resultlinks)
         if (resultlinks.length > 0){
             let video_download = resultlinks.filter((item:any) =>{return(item.source.includes("1080P"))})[0].link
-
-              let dir:any = FileSystem.documentDirectory
-              let files = await FileSystem.readDirectoryAsync(dir);
-              // AsyncStorage Current Download
               await downloadfile(video_download,`${episodeid}.mp4`)
               console.log("done")
+              let animelink = FileSystem.documentDirectory + `${episodeid}.mp4`
+              let season_image_local = FileSystem.documentDirectory + `${season_name}.jpg`
+              await AsyncStorage.setItem(`downloaded-episode:${episodeid}`,JSON.stringify({"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image_local,"season_name":season_name}))
               //console.log(files)
               
             //console.log(video_download)

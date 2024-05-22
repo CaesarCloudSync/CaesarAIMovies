@@ -7,7 +7,7 @@ import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
 export default function Downloads(){
     const [progress,setProgress] = useState({});
     const [downloadedmanga,setDownloadedManga]  = useState<any>([]);
@@ -17,25 +17,7 @@ export default function Downloads(){
           downloadProgress: progress,
         });
       };
-    const getpages =async () => {
-        const downloadResumable = FileSystem.createDownloadResumable(
-            'https://uploads.mangadex.org/data/7dd9b16a7f83881121980b3bf685d5ff/x1-de250240139cdbe166efb2251cb9b6d02029ae72242a953065974a12a0d86581.jpg',
-            FileSystem.documentDirectory + 'chapter1.jpg',
-            {},
-            callback
-          );
-          try {
-            const { uri }:any = await downloadResumable.downloadAsync();
-            //console.log('Finished downloading to ', uri);
-          } catch (e) {
-            console.error(e);
-          }
-          let dir:any = FileSystem.documentDirectory
-          let files = await FileSystem.readDirectoryAsync(dir);
-          ////console.log(files)
-          
-        
-    }
+
     const getdownloadedmanga =async () => {
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("downloaded_volume:"))}))
@@ -56,29 +38,26 @@ export default function Downloads(){
         <View style={{flex:1,backgroundColor:"#141212"}}>
             <StatusBar  hidden/>
             <Header style={{flex:1.3}}/>
-            {downloadedmanga.length !== 0 &&
-            <FlatList
-                    numColumns={2}
-                    
-                    style={{flex:1}}
-                    
-                    columnWrapperStyle={{    flexGrow: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center',}}
-
-                    data={downloadedmanga}
-                    renderItem={({item,index}:any) => {
-        
-                            return (<View></View>
-                              
-                       
-
-                
-                            )
+            {downloadedmanga.length !== 0&&
+                <View style={{flex:1,padding:30}}> 
+                        <FlatList
+                        numColumns={2}
+                        style={{flex:1, flexGrow: 1}}
+                        
+                        columnWrapperStyle={{    flexGrow: 1,
+                            justifyContent: 'center',
+                            alignItems: 'center',gap:20}}
+                        data={downloadedmanga}
+                        renderItem={({item,index}:any) => {
+                            let film = item
+                        
+                            return(
+                              <AnimeSeriesCard key={index} film={film} setRecentManga={setRecentManga}/>
+                          )
+                        }
                     }
-                }
 
-            />}
+                /></View>}
             {downloadedmanga.length === 0 && <View style={{flex:1}}></View>}
 
             <NavigationFooter style={{flex:0.1}} currentpage={"downloads"}/>
