@@ -27,7 +27,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
     const getepisode = async () =>{
         let video_data = await AsyncStorage.getItem(`downloaded-episode:${animeid}_${season_name}_${episodeid}`)
 
-        if (video_data && netInfo.isInternetReachable === false){
+        if (video_data){
           let video_info = JSON.parse(video_data)
           console.log(video_info)
           router.push({ pathname: "/videoepisode", params: {"animelink":video_info.animelink,"episodeid":video_info.episodeid,"numeps":video_info.numeps,"number":video_info.number,"animeid":video_info.animeid,"film_name":video_info.film_name,"poster_path":video_info.season_image,"season_image":video_info.season_image,"season_name":video_info.season_name}});
