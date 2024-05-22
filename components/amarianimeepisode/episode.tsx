@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { View,Text, Alert } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+
 import * as FileSystem from 'expo-file-system';
 export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path,season_image,season_name}:any){
     const router = useRouter();
@@ -46,6 +47,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
     }
     const downloadepisode =async () => {
         console.log("hi")
+        await downloadfile(season_image,`${season_name}.jpg`)
         const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
         let result = response.data
         let download_link = result.download
@@ -57,7 +59,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
 
               let dir:any = FileSystem.documentDirectory
               let files = await FileSystem.readDirectoryAsync(dir);
-              
+              // AsyncStorage Current Download
               await downloadfile(video_download,`${episodeid}.mp4`)
               console.log("done")
               //console.log(files)
@@ -71,7 +73,6 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         
     }
 
-    ////console.log(film.original_language)
     ////console.log(haswatchedcookie,"hi")
     return(
         <TouchableOpacity onLongPress={() =>{downloadepisode()}} onPress={() =>{getepisode()}} style={{display:"flex",backgroundColor:"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"flex-end",cursor:"pointer"}}>
