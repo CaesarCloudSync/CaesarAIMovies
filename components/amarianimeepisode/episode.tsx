@@ -14,6 +14,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
     const router = useRouter();
     const [cookie_key,setCookieKey] = useState(`${episodeid}`)
     const [progress,setProgress] = useState({downloadProgress:0});
+    const [isdownloaded,setIsDownloaded] = useState(false);
     const callback = (downloadProgress:any) => {
         const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
         console.log(progress)
@@ -25,7 +26,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
     //const [haswatchedcookie,setHasWatchedCookie] = useState(read_cookie(cookie_key))
     const getepisode = async () =>{
         let video_data = await AsyncStorage.getItem(`downloaded-episode:${animeid}_${season_name}_${episodeid}`)
-        console.log(video_data)
+
         if (video_data && netInfo.isInternetReachable === false){
           let video_info = JSON.parse(video_data)
           console.log(video_info)
@@ -88,10 +89,19 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         }
         
     }
+    const checkifdownloaded =async () => {
+      let video_data = await AsyncStorage.getItem(`downloaded-episode:${animeid}_${season_name}_${episodeid}`)
+      if (video_data){
+        setIsDownloaded(true)
+      }
+    }
+    useEffect(()=>{
+      checkifdownloaded()
+    },[])
 
     ////console.log(haswatchedcookie,"hi")
     return(
-        <TouchableOpacity onLongPress={() =>{downloadepisode()}} onPress={() =>{getepisode()}} style={{display:"flex",backgroundColor:"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"flex-end",cursor:"pointer"}}>
+        <TouchableOpacity onLongPress={() =>{downloadepisode()}} onPress={() =>{getepisode()}} style={{display:"flex",backgroundColor:isdownloaded === true ? "green":"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"flex-end",cursor:"pointer"}}>
             <View style={{display:"flex",backgroundColor:"blue",height:`${progress.downloadProgress * 100}%`,width:30,justifyContent:"center",alignItems:"center",cursor:"pointer",borderBottomLeftRadius:5,borderBottomRightRadius:5,borderTopLeftRadius:progress.downloadProgress < 1 ? 0 : 5,borderTopRightRadius:progress.downloadProgress < 1 ? 0 : 5}}>
                 
             </View>
