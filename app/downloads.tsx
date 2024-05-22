@@ -20,12 +20,15 @@ export default function Downloads(){
       };
 
     const getdownloadedmanga =async () => {
+      let dir:any = FileSystem.documentDirectory
+      let files = await FileSystem.readDirectoryAsync(dir);
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("downloaded-season:"))}))
          ////console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
          //console.log(mangaitems)
         setDownloadedManga(mangaitems)
+
         
      }
 

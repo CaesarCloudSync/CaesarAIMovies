@@ -73,7 +73,7 @@ export default function AmariAnimeEpisodes(){
     useEffect(() =>{
         getfilmdetails()
         
-    },[netInfo])
+    },[netInfo,episodes])
     return(
         <View style={{backgroundColor:"#1e1e1e",flex:1,justifyContent:"center",alignItems:"center"}}>
         <StatusBar hidden/>
@@ -105,7 +105,7 @@ export default function AmariAnimeEpisodes(){
                                                     //console.log(episode)
                                                     let episodeid  = episode.episodeid ? episode.episodeid : episode.id
                                                     return(
-                                                        <Episode animeid={animeid} season_name={season_name} season_image={season.image} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episodeid} number={episode.number} setVideo={setVideo}/>
+                                                        <Episode animeid={animeid} season_name={season_name} season_image={season.image} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episodeid} number={episode.number} setEpisodes={setEpisodes} setVideo={setVideo}/>
                                                     )
                                                 }}
                                             >

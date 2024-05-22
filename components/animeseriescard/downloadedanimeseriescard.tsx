@@ -33,7 +33,7 @@ export default function DownloadedAnimeSeriesCard({film,setRecentManga}:any){
     return(
         <View>
         <View style={{display:"flex",flexDirection:"column"}}>
-            <TouchableOpacity  onPress={() =>{getvideo()}} >
+            <TouchableOpacity onPress={() =>{getvideo()}} >
             <Image src={film.season_image} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
             </TouchableOpacity>
             <View style={{width:175,flex:1,gap:2}}>

@@ -9,7 +9,7 @@ import { useRouter } from "expo-router";
 import * as FileSystem from 'expo-file-system';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNetInfo } from "@react-native-community/netinfo";
-export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path,season_image,season_name}:any){
+export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path,season_image,season_name,setEpisodes}:any){
   const netInfo = useNetInfo();
     const router = useRouter();
     const [cookie_key,setCookieKey] = useState(`${episodeid}`)
@@ -88,6 +88,35 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
           else{
               Alert.alert("Download link does not exist.")
           }
+        }
+        else{
+          console.log("hello")
+  
+      
+          await FileSystem.deleteAsync(FileSystem.documentDirectory +`${episodeid}.mp4` )
+          await AsyncStorage.removeItem(`downloaded-episode:${animeid}_${season_name}_${episodeid}`)
+          let keys = await AsyncStorage.getAllKeys()
+          const downloadeditems:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes(`downloaded-episode:${animeid}_${season_name}`))}))
+
+          if (downloadeditems.length === 0){
+            await AsyncStorage.removeItem(`downloaded-season:${animeid}_${season_name}`)
+            await FileSystem.deleteAsync(FileSystem.documentDirectory +`${season_name}.jpg`)
+            
+            //await FileSystem.deleteAsync(FileSystem.documentDirectory +`${season_name}.jpg` )
+            
+          
+          
+            router.push("/downloads")
+
+          }
+          else{
+            setEpisodes([])
+            console.log("ham")
+
+          }
+
+          
+         
         }
         
     }

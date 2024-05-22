@@ -60,7 +60,7 @@ export default function Search(){
       
 
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("media:"))}))
-         console.log(items)
+
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
         setRecentManga(mangaitems)
         
