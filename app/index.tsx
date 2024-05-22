@@ -72,7 +72,7 @@ export default function AmariMovies(){
         if (netInfo.isInternetReachable === true){
             getupcomingfilms()
         }
-    },[pagenum])
+    },[netInfo,pagenum])
 
     
     
