@@ -9,7 +9,7 @@ import * as FileSystem from 'expo-file-system';
 export default function Episode({episodeid,number,numeps,animeid,film_name,poster_path,season_image,season_name}:any){
     const router = useRouter();
     const [cookie_key,setCookieKey] = useState(`${episodeid}`)
-    const [progress,setProgress] = useState({});
+    const [progress,setProgress] = useState({downloadProgress:0});
     const callback = (downloadProgress:any) => {
         const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
         console.log(progress)
@@ -29,30 +29,38 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
 
 
     }
+    const downloadfile =async (url:string,filename:string) => {
+        
+        const downloadResumable = FileSystem.createDownloadResumable(
+            url,
+            FileSystem.documentDirectory + filename,
+            {},
+            callback
+          );
+          try {
+            const { uri }:any = await downloadResumable.downloadAsync();
+            console.log('Finished downloading to ', uri);
+          } catch (e) {
+            console.error(e);
+          }
+    }
     const downloadepisode =async () => {
+        console.log("hi")
         const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
         let result = response.data
         let download_link = result.download
         const responselinks = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/download?link=${download_link}`)
         let resultlinks:any = responselinks.data
+        console.log(resultlinks)
         if (resultlinks.length > 0){
             let video_download = resultlinks.filter((item:any) =>{return(item.source.includes("1080P"))})[0].link
 
-            const downloadResumable = FileSystem.createDownloadResumable(
-                video_download,
-                FileSystem.documentDirectory + `${episodeid}.mp4`,
-                {},
-                callback
-              );
-              try {
-                const { uri }:any = await downloadResumable.downloadAsync();
-                console.log('Finished downloading to ', uri);
-              } catch (e) {
-                console.error(e);
-              }
               let dir:any = FileSystem.documentDirectory
               let files = await FileSystem.readDirectoryAsync(dir);
-              console.log(files)
+              
+              await downloadfile(video_download,`${episodeid}.mp4`)
+              console.log("done")
+              //console.log(files)
               
             //console.log(video_download)
             
@@ -66,9 +74,14 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
     ////console.log(film.original_language)
     ////console.log(haswatchedcookie,"hi")
     return(
-        <TouchableOpacity onLongPress={() =>{downloadepisode()}} onPress={() =>{getepisode()}} style={{display:"flex",backgroundColor:"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"center",alignItems:"center",cursor:"pointer"}}>
-       
-                <Text style={{color:"black"}}>{number}</Text>
+        <TouchableOpacity onLongPress={() =>{downloadepisode()}} onPress={() =>{getepisode()}} style={{display:"flex",backgroundColor:"white",opacity:1,borderRadius:5,height:30,width:30,justifyContent:"flex-end",cursor:"pointer"}}>
+            <View style={{display:"flex",backgroundColor:"blue",height:`${progress.downloadProgress * 100}%`,width:30,justifyContent:"center",alignItems:"center",cursor:"pointer",borderBottomLeftRadius:5,borderBottomRightRadius:5,borderTopLeftRadius:progress.downloadProgress < 1 ? 0 : 5,borderTopRightRadius:progress.downloadProgress < 1 ? 0 : 5}}>
+                
+            </View>
+            <View style={{position:"absolute",left:11,bottom:5}}>
+            <Text style={{color:progress.downloadProgress > 0.6 ? "white" : "black"}}>{number}</Text>
+
+            </View>
 
 
         </TouchableOpacity>
