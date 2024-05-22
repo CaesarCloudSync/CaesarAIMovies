@@ -51,7 +51,7 @@ export default function Downloads(){
                         data={downloadedmanga}
                         renderItem={({item,index}:any) => {
                             let film = item
-                        
+                            console.log(film)
                             return(
                               <DownloadedAnimeSeriesCard key={index} film={film} setRecentManga={setDownloadedManga}/>
                           )

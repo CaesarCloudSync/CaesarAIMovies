@@ -80,7 +80,7 @@ export default function AmariAnimeEpisodes(){
             <View style={{flex:1,justifyContent:"center",alignItems:"center",gap:20,top:30}}>
                                     <Image  src={season.image} style={{width:150,height:250,cursor:"pointer",borderRadius:5}}></Image>
                                         <Text style={{color:"white",fontSize:20,fontWeight:"700"}}>{season.title}</Text>
-                                        <Text style={{color:"white"}}>Total Episodes:{season.totalEpisodes}</Text>
+                                        {netInfo.isInternetReachable === true && <Text style={{color:"white"}}>Total Episodes:{season.totalEpisodes}</Text>}
                                         <FlatList
                                                 numColumns={3}
                                                 style={{flex:1,width:300,height:300}}
@@ -107,9 +107,11 @@ export default function AmariAnimeEpisodes(){
                                                 
                                             </FlatList>
                                         <Text style={{marginTop:10,color:"white"}}>Description:</Text>
-                                        <ScrollView style={{maxHeight:300,maxWidth:300}}>
-                                            <Text style={{color:"white"}}>{season.description}</Text>
-                                        </ScrollView>
+                                {netInfo.isInternetReachable === true &&
+                                    
+                                <ScrollView style={{maxHeight:300,maxWidth:300}}>
+                                    <Text style={{color:"white"}}>{season.description}</Text>
+                                </ScrollView>}
                                         
                 
             </View>

@@ -37,7 +37,7 @@ export default function DownloadedAnimeSeriesCard({film,setRecentManga}:any){
             <Image src={film.season_image} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
             </TouchableOpacity>
             <View style={{width:175,flex:1,gap:2}}>
-                <Text style={{color:"white",fontSize:12}}>{film.season_name}</Text>
+                <Text style={{color:"white",fontSize:16}}>{film.season_name}</Text>
 
             </View>
 
