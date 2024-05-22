@@ -13,7 +13,9 @@ import MovieCard from "@/components/moviecard/moviecard";
 import { StatusBar } from "expo-status-bar";
 import NavigationFooter from "./footer";
 import { AntDesign } from '@expo/vector-icons';
+import { useNetInfo } from "@react-native-community/netinfo";
 export default function AmariMovies(){
+    const netInfo = useNetInfo();
 
     const router = useRouter();
     const navigate = useNavigation()
@@ -70,11 +72,14 @@ export default function AmariMovies(){
 
 
     useEffect(() =>{
-        getupcomingfilms()
+        if (netInfo.isInternetReachable === true){
+            getupcomingfilms()
+        }
     },[pagenum])
 
     
     
+if (netInfo.isInternetReachable === true){
     return(
         <View style={{flex:1,backgroundColor:"#141212"}}>
             <StatusBar hidden/>
@@ -128,4 +133,43 @@ export default function AmariMovies(){
         </View>
 
     )
+}
+
+else if (netInfo.isInternetReachable === null){
+    return(
+        <View style={{flex:1,backgroundColor:"#141212"}}>
+        <StatusBar  hidden/>
+        <Header style={{flex:1}}/>
+        {<View style={{flex:1}}></View>}
+        <NavigationFooter currentpage={"home"}></NavigationFooter>
+
+  
+
+    </View>
+    )
+}
+else if (netInfo.isInternetReachable === false){
+    return(
+        <View style={{flex:1}}>
+            <StatusBar hidden/>
+            {/*Header */}
+            <Header style={{flex:1}}/>
+            {/* No Internet Main Body */}
+            <View style={{flex:1,backgroundColor:"#141212",justifyContent:"center",alignItems:"center"}}>
+                <Text style={{fontSize:30,color:"white"}}>No Internet Connection</Text>
+                <Text style={{color:"white"}}>
+                Read your Downloads
+                </Text>
+            </View>
+            
+
+
+
+            {/*Navigation Footer*/}
+            <NavigationFooter currentpage={"home"}/>
+
+        </View>
+    )
+    
+}
 }

@@ -57,8 +57,10 @@ export default function Search(){
     }
     const getrecentmanga =async () => {
         let keys = await AsyncStorage.getAllKeys()
+      
+
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("media:"))}))
-         ////console.log(items)
+         console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
         setRecentManga(mangaitems)
         
@@ -281,6 +283,7 @@ else if (netInfo.isInternetReachable === null){
 else if (netInfo.isInternetReachable === false){
     return(
         <View style={{flex:1}}>
+            <StatusBar hidden/>
             {/*Header */}
             <Header style={{flex:1}}/>
             {/* No Internet Main Body */}
