@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AnimeSeriesCard from "@/components/animeseriescard/animeseriescard";
+import DownloadedAnimeSeriesCard from "@/components/animeseriescard/downloadedanimeseriescard";
 export default function Downloads(){
     const [progress,setProgress] = useState({});
     const [downloadedmanga,setDownloadedManga]  = useState<any>([]);
@@ -20,10 +21,10 @@ export default function Downloads(){
 
     const getdownloadedmanga =async () => {
         let keys = await AsyncStorage.getAllKeys()
-        const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("downloaded_volume:"))}))
+        const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("downloaded-season:"))}))
          ////console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
-         ////console.log(mangaitems)
+         console.log(mangaitems)
         setDownloadedManga(mangaitems)
         
      }
@@ -52,12 +53,12 @@ export default function Downloads(){
                             let film = item
                         
                             return(
-                              <AnimeSeriesCard key={index} film={film} setRecentManga={setRecentManga}/>
+                              <DownloadedAnimeSeriesCard key={index} film={film} setRecentManga={setDownloadedManga}/>
                           )
                         }
                     }
 
-                /></View>}
+                  /></View>}
             {downloadedmanga.length === 0 && <View style={{flex:1}}></View>}
 
             <NavigationFooter style={{flex:0.1}} currentpage={"downloads"}/>

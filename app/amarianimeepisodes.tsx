@@ -16,6 +16,7 @@ import { useNavigation } from "expo-router";
 import { TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNetInfo } from "@react-native-community/netinfo";
 export default function AmariAnimeEpisodes(){
     const navigate = useNavigation();
     const router = useRouter();
@@ -25,10 +26,15 @@ export default function AmariAnimeEpisodes(){
     const [video,setVideo] = useState("");
     const videoRef = useRef(null);
     const [status, setStatus] = useState({});
+    const netInfo = useNetInfo();
     //console.log(season_name,"ho")
 
 
     const getfilmdetails = async () =>{
+        let keys = await AsyncStorage.getAllKeys()
+        const downloadeditems:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes(`downloaded-episode:${animeid}_${season_name}`))}))
+       
+        if (netInfo.isInternetReachable === true){
         const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/info/${animeid}`)
         let result = response.data
 
@@ -37,12 +43,24 @@ export default function AmariAnimeEpisodes(){
         setSeason(result)
         //AsyncStorage.setItem(`current_anime`,JSON.stringify({"animeid":animeid,"film_name":film_name,"poster_path":poster_path})) 
 
-   
+        }
+        else if (netInfo.isInternetReachable === false){
+            const animeitems = downloadeditems.map((item:any) =>{return(JSON.parse(item[1]))})
+            console.log(animeitems)
+            setSeason({"title":animeitems[0].season_name,"image":animeitems[0].season_image})
+            setEpisodes(animeitems)
+            
+        }
 
         
     }
     const navseasons = () => {
-        router.push({ pathname: "/amarianimeseasons", params: {"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"src":"animeepisodes"}});
+        if (netInfo.isInternetReachable === true){
+            router.push({ pathname: "/amarianimeseasons", params: {"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"src":"animeepisodes"}});
+        }
+        else{
+            router.push("/downloads")
+        }
         
         
     }
@@ -50,7 +68,7 @@ export default function AmariAnimeEpisodes(){
     useEffect(() =>{
         getfilmdetails()
         
-    },[])
+    },[netInfo])
     return(
         <View style={{backgroundColor:"#1e1e1e",flex:1,justifyContent:"center",alignItems:"center"}}>
         <StatusBar hidden/>
@@ -80,8 +98,9 @@ export default function AmariAnimeEpisodes(){
                                                 renderItem={({item,index}:any) =>{
                                                     let episode = item
                                                     //console.log(episode)
+                                                    let episodeid  = episode.episodeid ? episode.episodeid : episode.id
                                                     return(
-                                                        <Episode animeid={animeid} season_name={season_name} season_image={season.image} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episode.id} number={episode.number} setVideo={setVideo}/>
+                                                        <Episode animeid={animeid} season_name={season_name} season_image={season.image} film_name={film_name}poster_path={poster_path} numeps={episodes.length} episodeid={episodeid} number={episode.number} setVideo={setVideo}/>
                                                     )
                                                 }}
                                             >

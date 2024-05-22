@@ -36,6 +36,7 @@ export default function VideoEpisode(){
     const refScrollView = useRef<any>(null)
     const [status, setStatus] = useState({});
     const [isPreloading,setIsPreloading] = useState(false)
+    //console.log(animelink)
 
     const navnextep =async () => {
       ////console.log(episodeid)
