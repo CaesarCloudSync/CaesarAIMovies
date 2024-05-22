@@ -38,10 +38,7 @@ export default function AmariMovies(){
         setUpcomingFilms(result.results)
         const responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
     }
-    useEffect(() =>{
-        getupcomingfilms()
-    },[])
-    
+
 
 
     const navleft = () =>{
@@ -137,15 +134,25 @@ if (netInfo.isInternetReachable === true){
 
 else if (netInfo.isInternetReachable === null){
     return(
-        <View style={{flex:1,backgroundColor:"#141212"}}>
-        <StatusBar  hidden/>
-        <Header style={{flex:1}}/>
-        {<View style={{flex:1}}></View>}
-        <NavigationFooter currentpage={"home"}></NavigationFooter>
+        <View style={{flex:1}}>
+            <StatusBar hidden/>
+            {/*Header */}
+            <Header style={{flex:1}}/>
+            {/* No Internet Main Body */}
+            <View style={{flex:1,backgroundColor:"#141212",justifyContent:"center",alignItems:"center"}}>
+                <Text style={{fontSize:30,color:"white"}}>No Internet Connection</Text>
+                <Text style={{color:"white"}}>
+                Watch your Downloads
+                </Text>
+            </View>
+            
 
-  
 
-    </View>
+
+            {/*Navigation Footer*/}
+            <NavigationFooter style={{flex:0.1}} currentpage={"home"}/>
+
+        </View>
     )
 }
 else if (netInfo.isInternetReachable === false){
@@ -158,7 +165,7 @@ else if (netInfo.isInternetReachable === false){
             <View style={{flex:1,backgroundColor:"#141212",justifyContent:"center",alignItems:"center"}}>
                 <Text style={{fontSize:30,color:"white"}}>No Internet Connection</Text>
                 <Text style={{color:"white"}}>
-                Read your Downloads
+                Watch your Downloads
                 </Text>
             </View>
             
@@ -166,7 +173,7 @@ else if (netInfo.isInternetReachable === false){
 
 
             {/*Navigation Footer*/}
-            <NavigationFooter currentpage={"home"}/>
+            <NavigationFooter style={{flex:0.1}} currentpage={"home"}/>
 
         </View>
     )

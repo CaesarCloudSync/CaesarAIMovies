@@ -21,8 +21,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Video, ResizeMode } from 'expo-av';
 import { ActivityIndicator } from "react-native";
 import * as NavigationBar from 'expo-navigation-bar';
+import { useNetInfo } from "@react-native-community/netinfo";
 export default function VideoEpisode(){
   const video = useRef<any>(null);
+  const netInfo = useNetInfo();
     const visibility = NavigationBar.useVisibility()
     const navigation = useNavigation();
     const router = useRouter();
@@ -40,20 +42,26 @@ export default function VideoEpisode(){
 
     const navnextep =async () => {
       ////console.log(episodeid)
-      ////console.log(parseInt(episodeid.replace(/^\D+/g, '').trim()))
+      ////console.log(parseInt(episodeid))
       let current_epnum:any = parseInt(number) 
       ////console.log(current_epnum)
       if (current_epnum <parseInt(numeps) ){
-        let ep_prefix = episodeid.substring(0, episodeid.length - 1);
-        let next_number = (current_epnum + 1).toString()
-        let next_episodeid = ep_prefix + next_number
-      const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${next_episodeid}?server=vidstreaming`);
-      let result = response.data
+        if (netInfo.isInternetReachable === true){
+          let ep_prefix = episodeid.substring(0, episodeid.length - 1);
+          let next_number = (current_epnum + 1).toString()
+          let next_episodeid = ep_prefix + next_number
+        const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${next_episodeid}?server=vidstreaming`);
+        let result = response.data
+  
+        let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
+        
+        router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":next_episodeid,"numeps":numeps,"number":next_number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
+        
+        }
+        else{
 
-      let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
-      
-      router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":next_episodeid,"numeps":numeps,"number":next_number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
-      
+        }
+
       
     }
 
@@ -61,6 +69,7 @@ export default function VideoEpisode(){
   const navprevep =async () => {
     let current_epnum:any = parseInt(number) 
     if (current_epnum > 0){
+      if (netInfo.isInternetReachable === true){
       let ep_prefix = episodeid.replace(/[0-9]/g, '')
       let prev = current_epnum - 1
       let prev_number:any = (current_epnum - 1).toString()
@@ -71,7 +80,10 @@ export default function VideoEpisode(){
       let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
   
       router.push({ pathname: "/videoepisode", params: {"animelink":video.url,"episodeid":prev_episodeid,"numeps":numeps,"number":prev_number,"film_name":film_name,"poster_path":poster_path,"season_image":season_image,"season_name":season_name}});
-      
+      }
+      else{
+
+      }
 
     }
     
@@ -90,7 +102,6 @@ export default function VideoEpisode(){
 const changeorientation =async () => {
 
   let orientation = await ScreenOrientation.getOrientationAsync(); 
-  console.log(orientation)
 
   if (orientation === 1){
 

@@ -77,12 +77,11 @@ export default function Library(){
                     data={recentmanga}
                     renderItem={({item,index}:any) => {
                         let film = item
-                        console.log(film)
-                      
+    
                             return (
                                 <View>
                                 <View style={{display:"flex",flexDirection:"column"}}>
-                                    <TouchableOpacity onLongPress={() =>{removefromlibrary(film.animeid)}} onPress={() =>{router.push({ pathname: "/videoepisode", params: {"animelink":film.animelink,"episodeid":film.episodeid,"numeps":film.numeps,"number":film.number,"animeid":film.animeid,"film_name":film.film_name,"poster_path":film.poster_path}});}} > 
+                                    <TouchableOpacity onLongPress={() =>{removefromlibrary(film.animeid)}} onPress={() =>{router.push({ pathname: "/videoepisode", params: {"animelink":film.animelink,"episodeid":film.episodeid,"numeps":film.numeps,"number":film.number,"animeid":film.animeid,"film_name":film.film_name,"poster_path":film.poster_path,"season_name":film.season_name}});}} > 
                                     <Image src={film.season_image} style={{width:175,height:300,borderRadius:5}} resizeMode={"contain"}></Image>
                                     </TouchableOpacity>
                                     <View style={{width:175,flex:1,gap:2}}>

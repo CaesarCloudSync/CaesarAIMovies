@@ -46,7 +46,12 @@ export default function AmariAnimeEpisodes(){
         }
         else if (netInfo.isInternetReachable === false){
             const animeitems = downloadeditems.map((item:any) =>{return(JSON.parse(item[1]))})
-            console.log(animeitems)
+            animeitems.sort(function(a:any,b:any) {
+         
+                let bval = parseInt(b.number)
+                let aval = parseInt(a.number)
+                return aval- bval 
+            })
             setSeason({"title":animeitems[0].season_name,"image":animeitems[0].season_image})
             setEpisodes(animeitems)
             

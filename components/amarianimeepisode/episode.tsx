@@ -63,29 +63,31 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
     }
     const downloadepisode =async () => {
         console.log("hi")
-        await downloadfile(season_image,`${season_name}.jpg`)
-        const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
-        let result = response.data
-        let download_link = result.download
-        const responselinks = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/download?link=${download_link}`)
-        let resultlinks:any = responselinks.data
+        if (netInfo.isInternetReachable === true){
+          await downloadfile(season_image,`${season_name}.jpg`)
+          const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
+          let result = response.data
+          let download_link = result.download
+          const responselinks = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/download?link=${download_link}`)
+          let resultlinks:any = responselinks.data
 
-        if (resultlinks.length > 0){
-            let video_download = resultlinks.filter((item:any) =>{return(item.source.includes("720P"))})[0].link // 1080P,720P,480P,360P
-            console.log(video_download)
-              await downloadfile(video_download,`${episodeid}.mp4`)
-              console.log("done")
-              let animelink = FileSystem.documentDirectory + `${episodeid}.mp4`
-              let season_image_local = FileSystem.documentDirectory + `${season_name}.jpg`
-              await AsyncStorage.setItem(`downloaded-season:${animeid}_${season_name}`,JSON.stringify({"animelink":animelink,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image_local,"season_name":season_name}))
-              await AsyncStorage.setItem(`downloaded-episode:${animeid}_${season_name}_${episodeid}`,JSON.stringify({"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image_local,"season_name":season_name}))
-              //console.log(files)
+          if (resultlinks.length > 0){
+              let video_download = resultlinks.filter((item:any) =>{return(item.source.includes("720P"))})[0].link // 1080P,720P,480P,360P
+              console.log(video_download)
+                await downloadfile(video_download,`${episodeid}.mp4`)
+                console.log("done")
+                let animelink = FileSystem.documentDirectory + `${episodeid}.mp4`
+                let season_image_local = FileSystem.documentDirectory + `${season_name}.jpg`
+                await AsyncStorage.setItem(`downloaded-season:${animeid}_${season_name}`,JSON.stringify({"animelink":animelink,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image_local,"season_name":season_name}))
+                await AsyncStorage.setItem(`downloaded-episode:${animeid}_${season_name}_${episodeid}`,JSON.stringify({"animelink":animelink,"episodeid":episodeid,"numeps":numeps,"number":number,"animeid":animeid,"film_name":film_name,"poster_path":poster_path,"season_image":season_image_local,"season_name":season_name}))
+                //console.log(files)
+                
+              //console.log(video_download)
               
-            //console.log(video_download)
-            
-        }
-        else{
-            Alert.alert("Download link does not exist.")
+          }
+          else{
+              Alert.alert("Download link does not exist.")
+          }
         }
         
     }
@@ -105,7 +107,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
             <View style={{display:"flex",backgroundColor:"blue",height:`${progress.downloadProgress * 100}%`,width:30,justifyContent:"center",alignItems:"center",cursor:"pointer",borderBottomLeftRadius:5,borderBottomRightRadius:5,borderTopLeftRadius:progress.downloadProgress < 1 ? 0 : 5,borderTopRightRadius:progress.downloadProgress < 1 ? 0 : 5}}>
                 
             </View>
-            <View style={{position:"absolute",left:11,bottom:5}}>
+            <View style={{position:"absolute",left:number.toString().length === 1 ? "35%": "23%",bottom:"20%"}}>
             <Text style={{color:progress.downloadProgress > 0.6 ? "white" : "black"}}>{number}</Text>
 
             </View>
