@@ -22,11 +22,11 @@ export default function Library(){
      const get_downloaded_current_reading =async () => {
         let keys = await AsyncStorage.getAllKeys()
         const items:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes("current_watching_anime:"))}))
-         ////console.log(items)
+         console.log(items)
          const mangaitems = items.map((item:any) =>{return(JSON.parse(item[1]))})
         const mangaitemspromises = mangaitems.map(async (item:any) =>{
 
-            const downloaded_item = await AsyncStorage.getItem(`downloaded_volume:${item.mangaid}-${item.volumeno}`)
+            const downloaded_item = await AsyncStorage.getItem(`downloaded-season:${item.animeid}_${item.season_name}`)
             if (downloaded_item !== null){
                 return item
             }
@@ -35,7 +35,7 @@ export default function Library(){
             }
          })
          const downloaded_current_reading = (await Promise.all(mangaitemspromises)).filter((item) =>{return(item !== null)})
-         ////console.log(downloaded_current_reading)
+         //console.log(downloaded_current_reading)
          setRecentManga(downloaded_current_reading)
      }
      useEffect(()=>{
@@ -77,7 +77,7 @@ export default function Library(){
                     data={recentmanga}
                     renderItem={({item,index}:any) => {
                         let film = item
-                        //console.log(film)
+                        console.log(film)
                       
                             return (
                                 <View>
