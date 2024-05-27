@@ -35,7 +35,7 @@ export default function AmariAnimeEpisodes(){
         const downloadeditems:any = await AsyncStorage.multiGet(keys.filter((key) =>{return(key.includes(`downloaded-episode:${animeid}_${season_name}`))}))
        
         if (netInfo.isInternetReachable === true){
-        const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/info/${animeid}`)
+        const response = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/info/${animeid}`)
         let result = response.data
 
         setEpisodes(result.episodes)

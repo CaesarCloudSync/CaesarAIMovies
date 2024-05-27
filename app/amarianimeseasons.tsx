@@ -42,7 +42,7 @@ export default function AmariAnimeSeasons(){
         const config = {
             headers: { Authorization: `Bearer ${moviekeys.read_access_token}` }
         };
-        const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/${film_name}?page=1`,config)
+        const response = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/${film_name}?page=1`,config)
         let result = response.data
         let seasons = result.results
         ////console.log(seasons)

@@ -50,7 +50,7 @@ export default function VideoEpisode(){
           let ep_prefix = episodeid.substring(0, episodeid.length - 1);
           let next_number = (current_epnum + 1).toString()
           let next_episodeid = ep_prefix + next_number
-        const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${next_episodeid}?server=vidstreaming`);
+        const response = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/watch/${next_episodeid}?server=vidstreaming`);
         let result = response.data
   
         let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
@@ -75,7 +75,7 @@ export default function VideoEpisode(){
       let prev_number:any = (current_epnum - 1).toString()
       let prev_episodeid:any = ep_prefix + prev_number
       ////console.log(next_episodeid) 
-      const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${prev_episodeid}?server=vidstreaming`);
+      const response = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/watch/${prev_episodeid}?server=vidstreaming`);
       let result = response.data
       let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
   

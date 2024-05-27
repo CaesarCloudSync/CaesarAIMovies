@@ -36,7 +36,7 @@ export default function AmariMovies(){
         let result = response.data
         ////console.log(result)
         setUpcomingFilms(result.results)
-        const responsewakeup = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app`)
+        const responsewakeup = await axios.get(`https://caesaraiconsumet.fly.dev`)
     }
 
 

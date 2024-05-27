@@ -35,7 +35,7 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         }
         else{
                   
-        const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
+        const response = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
         let result = response.data
         let video = result.sources.filter((source:any) =>{return(source.quality === "1080p")})[0]
 
@@ -65,10 +65,10 @@ export default function Episode({episodeid,number,numeps,animeid,film_name,poste
         console.log("hi")
         if (netInfo.isInternetReachable === true){
           await downloadfile(season_image,`${season_name}.jpg`)
-          const response = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
+          const response = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/watch/${episodeid}?server=vidstreaming`);
           let result = response.data
           let download_link = result.download
-          const responselinks = await axios.get(`https://caesaraianimeconsumet-qqbn26mgpa-uc.a.run.app/anime/gogoanime/download?link=${download_link}`)
+          const responselinks = await axios.get(`https://caesaraiconsumet.fly.dev/anime/gogoanime/download?link=${download_link}`)
           let resultlinks:any = responselinks.data
 
           if (resultlinks.length > 0){
